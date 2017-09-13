@@ -502,7 +502,6 @@ mediaType: application/json
     responses:
       200:
         body:
-          example: |
       404:
         body:
           example: |
@@ -529,7 +528,6 @@ mediaType: application/json
     responses:  
       200:
         body:
-          example: |
       404:
         body:
           example: |
@@ -610,7 +608,6 @@ mediaType: application/json
                                  }
                               ]
                            }
-                          }
                           }
   post:
     description: TO creat new Profile
@@ -912,28 +909,17 @@ mediaType: application/json
                           "error": {
                                       "code": "ERR_CODE_PROJECT_NOT_FOUND",
                                       "message": "Project Not found."
-                                   }
-                          }
-                      }
-
-                      {
-                        "errors": {
+                                   },
                           "error": {
                                       "code": "ERR_CODE_ENROLLMENT_NOT_FOUND",
                                       "message": "Enrollment Not found."
-                                   }
-                          }
-                      }
-
-                      {
-                        "errors": {
+                                   },
                           "error": {
                                       "code": "ERR_CODE_ROLE_NOT_FOUND",
                                       "message": "Role Not found."
                                    }
                           }
-                      }    
-                                                              
+                      } 
 /sharingrules/{sharingruleid}:
   put: 
     description:  To update a specifc Sharing Rule
@@ -1004,37 +990,21 @@ mediaType: application/json
                           "error": {
                                       "code": "ERR_CODE_SHARING_RULE_NOT_FOUND",
                                       "message": "SharingRule Not found."
-                                   }
-                          }
-                      }
-
-                      {
-                        "errors": {
+                                   },
                           "error": {
                                       "code": "ERR_CODE_PROJECT_NOT_FOUND",
                                       "message": "Project Not found."
-                                   }
-                          }
-                      }
-
-                      {
-                        "errors": {
+                                   },
                           "error": {
                                       "code": "ERR_CODE_ENROLLMENT_NOT_FOUND",
                                       "message": "Enrollment Not found."
-                                   }
-                          }
-                      }
-
-                      {
-                        "errors": {
+                                   },
                           "error": {
                                       "code": "ERR_CODE_ROLE_NOT_FOUND",
                                       "message": "Role Not found."
                                    }
                           }
-                      }    
-                                                              
+                      }  
   delete:
     description: To Delete A Specifc Sharing Rule
     headers:
@@ -1410,7 +1380,6 @@ mediaType: application/json
     responses:
       200:
         body:
-          example : | 
       404:
         body:
           example: |
@@ -1419,15 +1388,12 @@ mediaType: application/json
                           "error": {
                                       "code": "ERR_CODE_USER_NOT_FOUND",
                                       "message": "User Not found."
-                                   }
                           }
-                      }
-
-                      {
+                        },                        
                         "errors": {
                           "error": {
                                       "code": "ERR_CODE_PERMISSIONSET_NOT_FOUND",
-                                      "message": "Permissionset Not found.
+                                      "message": "Permissionset Not found."
                                    }
                           }
                       }
@@ -1486,17 +1452,15 @@ mediaType: application/json
                           "error": {
                                       "code": "ERR_CODE_ENROLLMENT_NOT_FOUND",
                                       "message": "Enrollment Not found."
-                                   }
                           }
-                      }
-
-                      {
+                          
+                        },
                         "errors": {
                           "error": {
                                       "code": "ERR_CODE_PROJECT_NOT_FOUND",
                                       "message": "Project Not found."
-                                   }
                           }
+                        }
                       }
 /informationreleases/{enrollmentId}:
   put:
@@ -1552,17 +1516,14 @@ mediaType: application/json
                           "error": {
                                       "code": "ERR_CODE_ENROLLMENT_NOT_FOUND",
                                       "message": "Enrollment Not found."
-                                   }
                           }
-                      }
-
-                      {
+                        },
                         "errors": {
                           "error": {
                                       "code": "ERR_CODE_PROJECT_NOT_FOUND",
                                       "message": "Project Not found."
-                                   }
                           }
+                        }
                       }
   delete:
     description: To delete an enrollment's release of information.

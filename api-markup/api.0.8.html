@@ -1,0 +1,1252 @@
+<!DOCTYPE HTML><html><head><title>Hmis User Service API documentation</title><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="generator" content="https://github.com/raml2html/raml2html 3.0.1"><link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.3.0/styles/default.min.css"><script type="text/javascript" src="https://code.jquery.com/jquery-1.11.0.min.js"></script><script type="text/javascript" src="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.3.0/highlight.min.js"></script><script type="text/javascript">
+      $(document).ready(function() {
+        $('.page-header pre code, .top-resource-description pre code, .modal-body pre code').each(function(i, block) {
+          hljs.highlightBlock(block);
+        });
+
+        $('[data-toggle]').click(function() {
+          var selector = $(this).data('target') + ' pre code';
+          $(selector).each(function(i, block) {
+            hljs.highlightBlock(block);
+          });
+        });
+
+        // open modal on hashes like #_action_get
+        $(window).bind('hashchange', function(e) {
+          var anchor_id = document.location.hash.substr(1); //strip #
+          var element = $('#' + anchor_id);
+
+          // do we have such element + is it a modal?  --> show it
+          if (element.length && element.hasClass('modal')) {
+            element.modal('show');
+          }
+        });
+
+        // execute hashchange on first page load
+        $(window).trigger('hashchange');
+
+        // remove url fragment on modal hide
+        $('.modal').on('hidden.bs.modal', function() {
+          try {
+            if (history && history.replaceState) {
+                history.replaceState({}, '', '#');
+            }
+          } catch(e) {}
+        });
+      });
+    </script><style>
+      .hljs {
+        background: transparent;
+      }
+      .parent {
+        color: #999;
+      }
+      .list-group-item > .badge {
+        float: none;
+        margin-right: 6px;
+      }
+      .panel-title > .methods {
+        float: right;
+      }
+      .badge {
+        border-radius: 0;
+        text-transform: uppercase;
+        width: 70px;
+        font-weight: normal;
+        color: #f3f3f6;
+        line-height: normal;
+      }
+      .badge_get {
+        background-color: #63a8e2;
+      }
+      .badge_post {
+        background-color: #6cbd7d;
+      }
+      .badge_put {
+        background-color: #22bac4;
+      }
+      .badge_delete {
+        background-color: #d26460;
+      }
+      .badge_patch {
+        background-color: #ccc444;
+      }
+      .list-group, .panel-group {
+        margin-bottom: 0;
+      }
+      .panel-group .panel+.panel-white {
+        margin-top: 0;
+      }
+      .panel-group .panel-white {
+        border-bottom: 1px solid #F5F5F5;
+        border-radius: 0;
+      }
+      .panel-white:last-child {
+        border-bottom-color: white;
+        -webkit-box-shadow: none;
+        box-shadow: none;
+      }
+      .panel-white .panel-heading {
+        background: white;
+      }
+      .tab-pane ul {
+        padding-left: 2em;
+      }
+      .tab-pane h1 {
+        font-size: 1.3em;
+      }
+      .tab-pane h2 {
+        font-size: 1.2em;
+        padding-bottom: 4px;
+        border-bottom: 1px solid #ddd;
+      }
+      .tab-pane h3 {
+        font-size: 1.1em;
+      }
+      .tab-content {
+        border-left: 1px solid #ddd;
+        border-right: 1px solid #ddd;
+        border-bottom: 1px solid #ddd;
+        padding: 10px;
+      }
+      #sidebar {
+        margin-top: 30px;
+        padding-right: 5px;
+        overflow: auto;
+        height: 90%;
+      }
+      .top-resource-description {
+        border-bottom: 1px solid #ddd;
+        background: #fcfcfc;
+        padding: 15px 15px 0 15px;
+        margin: -15px -15px 10px -15px;
+      }
+      .resource-description {
+        border-bottom: 1px solid #fcfcfc;
+        background: #fcfcfc;
+        padding: 15px 15px 0 15px;
+        margin: -15px -15px 10px -15px;
+      }
+      .resource-description p:last-child {
+        margin: 0;
+      }
+      .list-group .badge {
+        float: left;
+      }
+      .method_description {
+        margin-left: 85px;
+      }
+      .method_description p:last-child {
+        margin: 0;
+      }
+      .list-group-item {
+        cursor: pointer;
+      }
+      .list-group-item:hover {
+        background-color: #f5f5f5;
+      }
+
+      pre code {
+        overflow: auto;
+        word-wrap: normal;
+        white-space: pre;
+      }
+    </style></head><body data-spy="scroll" data-target="#sidebar"><div class="container"><div class="row"><div class="col-md-9" role="main"><div class="page-header"><h1>Hmis User Service API documentation <small>version 1.0.0</small></h1><p>https://www.hmislynk.com/hmis-user-service/rest</p></div><div class="panel panel-default"><div class="panel-heading"><h3 id="accounts" class="panel-title">All accounts</h3></div><div class="panel-body"><div class="panel-group"><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_accounts"><span class="parent"></span>/accounts</a> <span class="methods"><a href="#accounts_post"><span class="badge badge_post">post</span></a> <a href="#accounts_get"><span class="badge badge_get">get</span></a></span></h4></div><div id="panel_accounts" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#accounts_post'" class="list-group-item"><span class="badge badge_post">post</span><div class="method_description"><p>It creates an account with the specified username and sends out an email to the user to verify the account creation. The initial status of the newly created account is PENDING. The status is changed to ACTIVE when the user verifies account creation by clicking the link embedded in the email. Only an ACTIVE account can log-in using the Create a session (Log-in) API.<br>It returns an error if an account with the specified username already exists. This endpoint does the following: 1) If request does not contain profile information, standard profile will be assigned to the user. 2) If request does not contain role information, default role will be assigned based on profile.<br>3) Project Group of the user will be same as the project group of logged-in user who creates the account. The user must have "USR_CREATE_ACCOUNT" permission to use this API</p></div><div class="clearfix"></div></div><div onclick="window.location.href = '#accounts_get'" class="list-group-item"><span class="badge badge_get">get</span><div class="method_description"><p>To get all the users under logged in your project group.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="accounts_post"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_post">post</span> <span class="parent"></span>/accounts</h4></div><div class="modal-body"><div class="alert alert-info"><p>It creates an account with the specified username and sends out an email to the user to verify the account creation. The initial status of the newly created account is PENDING. The status is changed to ACTIVE when the user verifies account creation by clicking the link embedded in the email. Only an ACTIVE account can log-in using the Create a session (Log-in) API.<br>It returns an error if an account with the specified username already exists. This endpoint does the following: 1) If request does not contain profile information, standard profile will be assigned to the user. 2) If request does not contain role information, default role will be assigned based on profile.<br>3) Project Group of the user will be same as the project group of logged-in user who creates the account. The user must have "USR_CREATE_ACCOUNT" permission to use this API</p></div><ul class="nav nav-tabs"><li class="active"><a href="#accounts_post_request" data-toggle="tab">Request</a></li><li><a href="#accounts_post_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="accounts_post_request"><h3>Headers</h3><ul><li><strong>Authorization</strong>: <em>required (string)</em><p>Authorization request header should specify as HMISUserAuth session_token={sessiontokenvalue}.</p><p><strong>Example</strong>:</p><pre>HMISUserAuth session_token=956048930B39448A8B6ABEDF57BECFFC07E2628546F847149BD42D4BC3CFDC39</pre></li><li><strong>X-HMIS-TrustedApp-Id</strong>: <em>required (string)</em><p>Trusted App id should be provide in this header.</p><p><strong>Example</strong>:</p><pre>MASTER_TRUSTED_APP</pre></li></ul><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Example</strong>:</p><pre><code>{
+   "account":{
+      "username":"username_1449460295042@hmis.com",
+      "emailAddress":"test@test.com",
+      "password":"1234567890",
+       "confirmPassword":"1234567890",
+      "firstName":"First Name",
+      "middleName":"Middle Name",
+      "lastName":"Last Name",
+      "role":{
+         "id":"33f2a166-4316-4e98-8a0a-7130eabce13e"
+      },
+      "profile":{
+         "id":"c8aa2d91-f982-4f59-a400-142be1af9fca"
+      }
+    }
+}
+</code></pre></div><div class="tab-pane" id="accounts_post_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Example</strong>:</p><pre><code>{
+   "account":{
+      "accountId":"11eeeed4-febc-42e6-b9fd-1818f0894a6c",
+      "username":"username_1449460295042@hmis.com",
+      "emailAddress":"test@test.com",
+      "firstName":"Test",
+      "middleName":"Middle Name",
+      "lastName":"Last Name",
+      "gender":0,
+      "status":"PENDING",
+      "twoFactorAuthentication":false,
+      "projectGroup":{
+         "projectGroupName":"PROJECT_GROUP_NAME",
+         "projectGroupDesc":"PROJECT_GROUP_DESCRIPTION",
+         "projectGroupId":"9b9792ca-8730-4d21-9a39-6902229fd4b9",
+         "projectGroupCode":"PG0001",
+         "skipuseridentifers":false,
+         "bucketName":"pg0001-6546a3c1-5cc3-4d9c-afd6-691a2704d8b8",
+         "projects":[
+
+         ]
+      },
+      "profile":{
+         "profileName":"Customer Admin Profile",
+         "profileDescription":"Customer Admin Profile",
+         "apiMethods":[
+
+         ],
+         "id":"d78c38a1-2762-4393-b69b-41a0a11e6efc"
+      },
+      "roles":[
+         {
+            "id":"b67c38a1-2762-4393-b69b-41a0a11e6efd",
+            "roleName":"CUSTADMIN",
+            "roleDescription":"Customer Admin Role"
+         }
+      ]
+   }
+}
+</code></pre><h2>HTTP status code <a href="http://httpstatus.es/409" target="_blank">409</a></h2><p>An account with the specified username already exists.</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Example</strong>:</p><pre><code>{
+  "errors": {
+    "error": {
+      "code": "ACCOUNT ALREADY_EXISTS",
+      "message": "an account with the specified username already exists. username: username_1436679989664@hmis.com"
+    }
+  }
+}
+</code></pre></div></div></div></div></div></div><div class="modal fade" tabindex="0" id="accounts_get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get</span> <span class="parent"></span>/accounts</h4></div><div class="modal-body"><div class="alert alert-info"><p>To get all the users under logged in your project group.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#accounts_get_request" data-toggle="tab">Request</a></li><li><a href="#accounts_get_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="accounts_get_request"><h3>Headers</h3><ul><li><strong>Authorization</strong>: <em>required (string)</em><p>Authorization request header should specify as HMISUserAuth session_token={sessiontokenvalue}.</p><p><strong>Example</strong>:</p><pre>HMISUserAuth session_token=956048930B39448A8B6ABEDF57BECFFC07E2628546F847149BD42D4BC3CFDC39</pre></li><li><strong>X-HMIS-TrustedApp-Id</strong>: <em>required (string)</em><p>Trusted App id should be provide in this header.</p><p><strong>Example</strong>:</p><pre>MASTER_TRUSTED_APP</pre></li></ul><h3>Query Parameters</h3><ul><li><strong>startIndex</strong>: <em>(string - default: 0)</em></li><li><strong>maxItems</strong>: <em>(string - default: 30)</em></li></ul></div><div class="tab-pane" id="accounts_get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Example</strong>:</p><pre><code>{
+ "accounts":{
+    "pagination":{
+       "from":0,
+       "maximum":30,
+       "sort":{
+
+       }
+    },
+    "account":[
+                {
+                   "account":{
+                      "accountId":"11eeeed4-febc-42e6-b9fd-1818f0894a6c",
+                      "username":"username_1449460295042@hmis.com",
+                      "emailAddress":"test@test.com",
+                      "firstName":"Test",
+                      "middleName":"Middle Name",
+                      "lastName":"Last Name",
+                      "gender":0,
+                      "status":"PENDING",
+                      "twoFactorAuthentication":false,
+                      "projectGroup":{
+                         "projectGroupName":"PROJECT_GROUP_NAME",
+                         "projectGroupDesc":"PROJECT_GROUP_DESCRIPTION",
+                         "projectGroupId":"9b9792ca-8730-4d21-9a39-6902229fd4b9",
+                         "projectGroupCode":"PG0001",
+                         "skipuseridentifers":false,
+                         "bucketName":"pg0001-6546a3c1-5cc3-4d9c-afd6-691a2704d8b8",
+                         "projects":[
+                
+                         ]
+                      },
+                      "profile":{
+                         "profileName":"Customer Admin Profile",
+                         "profileDescription":"Customer Admin Profile",
+                         "apiMethods":[
+                
+                         ],
+                         "id":"d78c38a1-2762-4393-b69b-41a0a11e6efc"
+                      },
+                      "roles":[
+                         {
+                            "id":"b67c38a1-2762-4393-b69b-41a0a11e6efd",
+                            "roleName":"CUSTADMIN",
+                            "roleDescription":"Customer Admin Role"
+                         }
+                      ]
+                   }
+                }                        ]
+ }
+}
+</code></pre></div></div></div></div></div></div></div></div></div></div><div class="panel panel-default"><div class="panel-heading"><h3 id="accounts__accountid_" class="panel-title">/accounts/{accountid}</h3></div><div class="panel-body"><div class="panel-group"><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_accounts__accountid_"><span class="parent"></span>/accounts/{accountid}</a> <span class="methods"><a href="#accounts__accountid__put"><span class="badge badge_put">put</span></a> <a href="#accounts__accountid__get"><span class="badge badge_get">get</span></a> <a href="#accounts__accountid__delete"><span class="badge badge_delete">delete</span></a></span></h4></div><div id="panel_accounts__accountid_" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#accounts__accountid__put'" class="list-group-item"><span class="badge badge_put">put</span><div class="method_description"><p>To update a specific account information. Provide account id as path variable for upatading non loggedin user. If need to update logged in user send self as account id.</p></div><div class="clearfix"></div></div><div onclick="window.location.href = '#accounts__accountid__get'" class="list-group-item"><span class="badge badge_get">get</span><div class="method_description"><p>Gets (aka reads or retrieves) a specific account.<br><br>GET /accounts/{username} <b></b></p></div><div class="clearfix"></div></div><div onclick="window.location.href = '#accounts__accountid__delete'" class="list-group-item"><span class="badge badge_delete">delete</span><div class="method_description"><p>Account status will be updated to DELETED.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="accounts__accountid__put"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_put">put</span> <span class="parent"></span>/accounts/{accountid}</h4></div><div class="modal-body"><div class="alert alert-info"><p>To update a specific account information. Provide account id as path variable for upatading non loggedin user. If need to update logged in user send self as account id.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#accounts__accountid__put_request" data-toggle="tab">Request</a></li><li><a href="#accounts__accountid__put_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="accounts__accountid__put_request"><h3>URI Parameters</h3><ul><li><strong>accountid</strong>: <em>required (string)</em></li></ul><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Example</strong>:</p><pre><code>{
+      "account": {
+          "emailAddress": "test@test.com",
+          "firstName": "First Name",
+          "middleName": "Middle Name",
+          "lastName": "Last Name",
+          "status":"INACIVE",
+          "profile":{
+             "id":"c8aa2d91-f982-4f59-a400-142be1af9fca"
+          }
+        }
+  } 
+</code></pre></div><div class="tab-pane" id="accounts__accountid__put_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Example</strong>:</p><pre><code>{
+  "account": {
+    "accountId": "AA8F9FD9-532D-4D59-B397-5D94CEC6A868",
+    "username": "username_1436679989664@hmis.com"
+  }
+}        
+</code></pre></div></div></div></div></div></div><div class="modal fade" tabindex="0" id="accounts__accountid__get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get</span> <span class="parent"></span>/accounts/{accountid}</h4></div><div class="modal-body"><div class="alert alert-info"><p>Gets (aka reads or retrieves) a specific account.<br><br>GET /accounts/{username} <b></b></p></div><ul class="nav nav-tabs"><li class="active"><a href="#accounts__accountid__get_request" data-toggle="tab">Request</a></li><li><a href="#accounts__accountid__get_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="accounts__accountid__get_request"><h3>URI Parameters</h3><ul><li><strong>accountid</strong>: <em>required (string)</em></li></ul><h3>Headers</h3><ul><li><strong>Authorization</strong>: <em>required (string)</em><p>Authorization request header should specify as HMISUserAuth session_token={sessiontokenvalue}.</p><p><strong>Example</strong>:</p><pre>HMISUserAuth session_token=956048930B39448A8B6ABEDF57BECFFC07E2628546F847149BD42D4BC3CFDC39</pre></li><li><strong>X-HMIS-TrustedApp-Id</strong>: <em>required (string)</em><p>Trusted App id should be provide in this header.</p><p><strong>Example</strong>:</p><pre>MASTER_TRUSTED_APP</pre></li></ul></div><div class="tab-pane" id="accounts__accountid__get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><p>Successfully retrieved resource(s)</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Example</strong>:</p><pre><code>{
+   "account":{
+      "accountId":"11eeeed4-febc-42e6-b9fd-1818f0894a6c",
+      "username":"username_1449460295042@hmis.com",
+      "emailAddress":"test@test.com",
+      "firstName":"Test",
+      "middleName":"Middle Name",
+      "lastName":"Last Name",
+      "gender":0,
+      "status":"PENDING",
+      "twoFactorAuthentication":false,
+      "projectGroup":{
+         "projectGroupName":"PROJECT_GROUP_NAME",
+         "projectGroupDesc":"PROJECT_GROUP_DESCRIPTION",
+         "projectGroupId":"9b9792ca-8730-4d21-9a39-6902229fd4b9",
+         "projectGroupCode":"PG0001",
+         "skipuseridentifers":false,
+         "bucketName":"pg0001-6546a3c1-5cc3-4d9c-afd6-691a2704d8b8",
+         "projects":[
+
+         ]
+      },
+      "profile":{
+         "profileName":"Customer Admin Profile",
+         "profileDescription":"Customer Admin Profile",
+         "apiMethods":[
+
+         ],
+         "id":"d78c38a1-2762-4393-b69b-41a0a11e6efc"
+      },
+      "roles":[
+         {
+            "id":"b67c38a1-2762-4393-b69b-41a0a11e6efd",
+            "roleName":"CUSTADMIN",
+            "roleDescription":"Customer Admin Role"
+         }
+      ]
+   }
+}
+</code></pre><h2>HTTP status code <a href="http://httpstatus.es/403" target="_blank">403</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Example</strong>:</p><pre><code>{
+  "errors": {
+    "error": {
+      "code": "ACCESS_DENIED",
+      "message": "Access denied"
+    }
+  }
+}
+</code></pre></div></div></div></div></div></div><div class="modal fade" tabindex="0" id="accounts__accountid__delete"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_delete">delete</span> <span class="parent"></span>/accounts/{accountid}</h4></div><div class="modal-body"><div class="alert alert-info"><p>Account status will be updated to DELETED.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#accounts__accountid__delete_request" data-toggle="tab">Request</a></li></ul><div class="tab-content"><div class="tab-pane active" id="accounts__accountid__delete_request"><h3>URI Parameters</h3><ul><li><strong>accountid</strong>: <em>required (string)</em></li></ul><h3>Headers</h3><ul><li><strong>Authorization</strong>: <em>required (string)</em><p>Authorization request header should specify as HMISUserAuth session_token={sessiontokenvalue}.</p><p><strong>Example</strong>:</p><pre>HMISUserAuth session_token=956048930B39448A8B6ABEDF57BECFFC07E2628546F847149BD42D4BC3CFDC39</pre></li><li><strong>X-HMIS-TrustedApp-Id</strong>: <em>required (string)</em><p>Trusted App id should be provide in this header.</p><p><strong>Example</strong>:</p><pre>MASTER_TRUSTED_APP</pre></li></ul></div></div></div></div></div></div></div></div></div></div><div class="panel panel-default"><div class="panel-heading"><h3 id="accounts__accountid__activate" class="panel-title">/accounts/{accountid}/activate</h3></div><div class="panel-body"><div class="panel-group"><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_accounts__accountid__activate"><span class="parent"></span>/accounts/{accountid}/activate</a> <span class="methods"><a href="#accounts__accountid__activate_put"><span class="badge badge_put">put</span></a></span></h4></div><div id="panel_accounts__accountid__activate" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#accounts__accountid__activate_put'" class="list-group-item"><span class="badge badge_put">put</span><div class="method_description"><p>To reactivate a specified user account</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="accounts__accountid__activate_put"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_put">put</span> <span class="parent"></span>/accounts/{accountid}/activate</h4></div><div class="modal-body"><div class="alert alert-info"><p>To reactivate a specified user account</p></div><ul class="nav nav-tabs"><li class="active"><a href="#accounts__accountid__activate_put_request" data-toggle="tab">Request</a></li><li><a href="#accounts__accountid__activate_put_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="accounts__accountid__activate_put_request"><h3>URI Parameters</h3><ul><li><strong>accountid</strong>: <em>required (string)</em></li></ul><h3>Headers</h3><ul><li><strong>Authorization</strong>: <em>required (string)</em><p>Authorization request header should specify as HMISUserAuth session_token={sessiontokenvalue}.</p><p><strong>Example</strong>:</p><pre>HMISUserAuth session_token=956048930B39448A8B6ABEDF57BECFFC07E2628546F847149BD42D4BC3CFDC39</pre></li><li><strong>X-HMIS-TrustedApp-Id</strong>: <em>required (string)</em><p>Trusted App id should be provide in this header.</p><p><strong>Example</strong>:</p><pre>MASTER_TRUSTED_APP</pre></li></ul></div><div class="tab-pane" id="accounts__accountid__activate_put_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><h2>HTTP status code <a href="http://httpstatus.es/403" target="_blank">403</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Example</strong>:</p><pre><code>{
+ "errors":{
+    "error":[
+       {
+          "code":"ACCESS_DENIED",
+          "message":"Account cannot be activated from DELETED status"
+       }
+    ]
+ }
+}
+</code></pre></div></div></div></div></div></div></div></div></div></div><div class="panel panel-default"><div class="panel-heading"><h3 id="accounts__accountid__basicinfo" class="panel-title">A specific account</h3></div><div class="panel-body"><div class="panel-group"><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_accounts__accountid__basicinfo"><span class="parent"></span>/accounts/{accountid}/basicinfo</a> <span class="methods"><a href="#accounts__accountid__basicinfo_get"><span class="badge badge_get">get</span></a></span></h4></div><div id="panel_accounts__accountid__basicinfo" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#accounts__accountid__basicinfo_get'" class="list-group-item"><span class="badge badge_get">get</span><div class="method_description"><p>Gets (aka reads or retrieves) a specific account.<br><br>GET /accounts/{username} <b></b></p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="accounts__accountid__basicinfo_get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get</span> <span class="parent"></span>/accounts/{accountid}/basicinfo</h4></div><div class="modal-body"><div class="alert alert-info"><p>Gets (aka reads or retrieves) a specific account.<br><br>GET /accounts/{username} <b></b></p></div><ul class="nav nav-tabs"><li class="active"><a href="#accounts__accountid__basicinfo_get_request" data-toggle="tab">Request</a></li><li><a href="#accounts__accountid__basicinfo_get_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="accounts__accountid__basicinfo_get_request"><h3>URI Parameters</h3><ul><li><strong>accountid</strong>: <em>required (string)</em></li></ul><h3>Headers</h3><ul><li><strong>Authorization</strong>: <em>required (string)</em><p>Authorization request header should specify as HMISUserAuth session_token={sessiontokenvalue}.</p><p><strong>Example</strong>:</p><pre>HMISUserAuth session_token=956048930B39448A8B6ABEDF57BECFFC07E2628546F847149BD42D4BC3CFDC39</pre></li><li><strong>X-HMIS-TrustedApp-Id</strong>: <em>required (string)</em><p>Trusted App id should be provide in this header.</p><p><strong>Example</strong>:</p><pre>MASTER_TRUSTED_APP</pre></li></ul></div><div class="tab-pane" id="accounts__accountid__basicinfo_get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><p>Successfully retrieved resource(s)</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Example</strong>:</p><pre><code>{
+   "account":{
+      "accountId":"11eeeed4-febc-42e6-b9fd-1818f0894a6c",
+      "username":"username_1449460295042@hmis.com",
+      "emailAddress":"test@test.com",
+      "firstName":"Test",
+      "middleName":"Middle Name",
+      "lastName":"Last Name",
+      "gender":0,
+      "status":"PENDING",
+      "twoFactorAuthentication":false,
+      "projectGroup":{
+         "projectGroupName":"PROJECT_GROUP_NAME",
+         "projectGroupDesc":"PROJECT_GROUP_DESCRIPTION",
+         "projectGroupId":"9b9792ca-8730-4d21-9a39-6902229fd4b9",
+         "projectGroupCode":"PG0001",
+         "skipuseridentifers":false,
+         "bucketName":"pg0001-6546a3c1-5cc3-4d9c-afd6-691a2704d8b8",
+         "projects":[
+
+         ]
+      },
+      "profile":{
+         "profileName":"Customer Admin Profile",
+         "profileDescription":"Customer Admin Profile",
+         "apiMethods":[
+
+         ],
+         "id":"d78c38a1-2762-4393-b69b-41a0a11e6efc"
+      },
+      "roles":[
+         {
+            "id":"b67c38a1-2762-4393-b69b-41a0a11e6efd",
+            "roleName":"CUSTADMIN",
+            "roleDescription":"Customer Admin Role"
+         }
+      ]
+   }
+}
+</code></pre><h2>HTTP status code <a href="http://httpstatus.es/403" target="_blank">403</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Example</strong>:</p><pre><code>{
+  "errors": {
+    "error": {
+      "code": "ACCESS_DENIED",
+      "message": "Access denied"
+    }
+  }
+}              
+</code></pre></div></div></div></div></div></div></div></div></div></div><div class="panel panel-default"><div class="panel-heading"><h3 id="accounts__accountid__passwordchanges" class="panel-title">Change password for an account</h3></div><div class="panel-body"><div class="panel-group"><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_accounts__accountid__passwordchanges"><span class="parent"></span>/accounts/{accountid}/passwordchanges</a> <span class="methods"><a href="#accounts__accountid__passwordchanges_put"><span class="badge badge_put">put</span></a></span></h4></div><div id="panel_accounts__accountid__passwordchanges" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#accounts__accountid__passwordchanges_put'" class="list-group-item"><span class="badge badge_put">put</span><div class="method_description"><p>Changes password for an account. To change the password, the user must be logged-in and provide his/her current password. The {username} is a value that uniquely identifies an account. To change the password of the currently logged-in user, the {username} can be replaced by <b>self</b> keyword in the URL as shown below. <b>POST</b> /accounts/self/passwordchanges</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="accounts__accountid__passwordchanges_put"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_put">put</span> <span class="parent"></span>/accounts/{accountid}/passwordchanges</h4></div><div class="modal-body"><div class="alert alert-info"><p>Changes password for an account. To change the password, the user must be logged-in and provide his/her current password. The {username} is a value that uniquely identifies an account. To change the password of the currently logged-in user, the {username} can be replaced by <b>self</b> keyword in the URL as shown below. <b>POST</b> /accounts/self/passwordchanges</p></div><ul class="nav nav-tabs"><li class="active"><a href="#accounts__accountid__passwordchanges_put_request" data-toggle="tab">Request</a></li><li><a href="#accounts__accountid__passwordchanges_put_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="accounts__accountid__passwordchanges_put_request"><h3>URI Parameters</h3><ul><li><strong>accountid</strong>: <em>required (string)</em></li></ul><h3>Headers</h3><ul><li><strong>Authorization</strong>: <em>required (string)</em><p>Authorization request header should specify as HMISUserAuth session_token={sessiontokenvalue}.</p><p><strong>Example</strong>:</p><pre>HMISUserAuth session_token=956048930B39448A8B6ABEDF57BECFFC07E2628546F847149BD42D4BC3CFDC39</pre></li><li><strong>X-HMIS-TrustedApp-Id</strong>: <em>required (string)</em><p>Trusted App id should be provide in this header.</p><p><strong>Example</strong>:</p><pre>MASTER_TRUSTED_APP</pre></li></ul><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Example</strong>:</p><pre><code>{
+  "passwordChange": {
+    "currentPassword": "testpwd3",
+    "newPassword": "testpwd4",
+    "confirmNewPassword":"testpwd4"
+  }
+}
+</code></pre></div><div class="tab-pane" id="accounts__accountid__passwordchanges_put_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Example</strong>:</p><pre><code>{  "passwordChange": "" }
+</code></pre><h2>HTTP status code <a href="http://httpstatus.es/403" target="_blank">403</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Example</strong>:</p><pre><code>{
+  "errors": {
+    "error": {
+      "code": "INVALID_CURRENT_PASSWORD",
+      "message": "The specified currentPassword does not match with the password stored in the database."
+    }
+  }
+}
+</code></pre></div></div></div></div></div></div></div></div></div></div><div class="panel panel-default"><div class="panel-heading"><h3 id="accounts__accountid__forgotpassword" class="panel-title">Change password for an account</h3></div><div class="panel-body"><div class="panel-group"><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_accounts__accountid__forgotpassword"><span class="parent"></span>/accounts/{accountid}/forgotpassword</a> <span class="methods"><a href="#accounts__accountid__forgotpassword_post"><span class="badge badge_post">post</span></a></span></h4></div><div id="panel_accounts__accountid__forgotpassword" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#accounts__accountid__forgotpassword_post'" class="list-group-item"><span class="badge badge_post">post</span><div class="method_description"><p>Resets password for an account. It sends out an email notification to the user to verify the password reset. The new password becomes effective only after it has been verified by the user. It returns an error if an account with the specified username does not exist OR the account has been DISABLED.<br>The {username} is a value that uniquely identifies an account.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="accounts__accountid__forgotpassword_post"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_post">post</span> <span class="parent"></span>/accounts/{accountid}/forgotpassword</h4></div><div class="modal-body"><div class="alert alert-info"><p>Resets password for an account. It sends out an email notification to the user to verify the password reset. The new password becomes effective only after it has been verified by the user. It returns an error if an account with the specified username does not exist OR the account has been DISABLED.<br>The {username} is a value that uniquely identifies an account.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#accounts__accountid__forgotpassword_post_request" data-toggle="tab">Request</a></li><li><a href="#accounts__accountid__forgotpassword_post_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="accounts__accountid__forgotpassword_post_request"><h3>URI Parameters</h3><ul><li><strong>accountid</strong>: <em>required (string)</em></li></ul><h3>Headers</h3><ul><li><strong>Authorization</strong>: <em>required (string)</em><p>Authorization request header should specify as HMISUserAuth session_token={sessiontokenvalue}.</p><p><strong>Example</strong>:</p><pre>HMISUserAuth session_token=956048930B39448A8B6ABEDF57BECFFC07E2628546F847149BD42D4BC3CFDC39</pre></li><li><strong>X-HMIS-TrustedApp-Id</strong>: <em>required (string)</em><p>Trusted App id should be provide in this header.</p><p><strong>Example</strong>:</p><pre>MASTER_TRUSTED_APP</pre></li></ul></div><div class="tab-pane" id="accounts__accountid__forgotpassword_post_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Example</strong>:</p><pre><code>{  "passwordReset": "" }
+</code></pre><h2>HTTP status code <a href="http://httpstatus.es/403" target="_blank">403</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Example</strong>:</p><pre><code>{
+  "errors": {
+    "error": {
+      "code": "ACCOUNT_DISABLED",
+      "message": "The account has been disabled."
+    }
+  }
+}
+</code></pre><h2>HTTP status code <a href="http://httpstatus.es/404" target="_blank">404</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Example</strong>:</p><pre><code>{
+  "errors": {
+    "error": {
+      "code": "ACCOUNT_NOT_FOUND",
+      "message": "An account with the specified username does not exist."
+    }
+  }
+}
+</code></pre></div></div></div></div></div></div></div></div></div></div><div class="panel panel-default"><div class="panel-heading"><h3 id="accounts__accountid__roles" class="panel-title">/accounts/{accountid}/roles</h3></div><div class="panel-body"><div class="panel-group"><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_accounts__accountid__roles"><span class="parent"></span>/accounts/{accountid}/roles</a> <span class="methods"><a href="#accounts__accountid__roles_put"><span class="badge badge_put">put</span></a></span></h4></div><div id="panel_accounts__accountid__roles" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#accounts__accountid__roles_put'" class="list-group-item"><span class="badge badge_put">put</span><div class="method_description"><p>To assigne a role to user. If the role is already assigned nothing will happen.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="accounts__accountid__roles_put"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_put">put</span> <span class="parent"></span>/accounts/{accountid}/roles</h4></div><div class="modal-body"><div class="alert alert-info"><p>To assigne a role to user. If the role is already assigned nothing will happen.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#accounts__accountid__roles_put_request" data-toggle="tab">Request</a></li><li><a href="#accounts__accountid__roles_put_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="accounts__accountid__roles_put_request"><h3>URI Parameters</h3><ul><li><strong>accountid</strong>: <em>required (string)</em></li></ul><h3>Headers</h3><ul><li><strong>Authorization</strong>: <em>required (string)</em><p>Authorization request header should specify as HMISUserAuth session_token={sessiontokenvalue}.</p><p><strong>Example</strong>:</p><pre>HMISUserAuth session_token=956048930B39448A8B6ABEDF57BECFFC07E2628546F847149BD42D4BC3CFDC39</pre></li><li><strong>X-HMIS-TrustedApp-Id</strong>: <em>required (string)</em><p>Trusted App id should be provide in this header.</p><p><strong>Example</strong>:</p><pre>MASTER_TRUSTED_APP</pre></li></ul><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Example</strong>:</p><pre><code>{
+   "roles":{
+      "role":[
+         {
+            "id":"6b5857d9-bc16-4706-acde-17be5d530631"
+         },
+         {
+            "id":"b67c38a1-2762-4393-b69b-41a0a11e6efc"
+         }
+      ]
+   }
+}
+</code></pre></div><div class="tab-pane" id="accounts__accountid__roles_put_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><h2>HTTP status code <a href="http://httpstatus.es/404" target="_blank">404</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Example</strong>:</p><pre><code>{
+  "errors": {
+    "error": {
+                "code": "ERR_CODE_ROLE_NOT_FOUND",
+                "message": "Role Not found."
+             }
+    }
+}
+</code></pre></div></div></div></div></div></div></div></div></div></div><div class="panel panel-default"><div class="panel-heading"><h3 id="accounts__accountid__roles__roleid_" class="panel-title">/accounts/{accountid}/roles/{roleid}</h3></div><div class="panel-body"><div class="panel-group"><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_accounts__accountid__roles__roleid_"><span class="parent"></span>/accounts/{accountid}/roles/{roleid}</a> <span class="methods"><a href="#accounts__accountid__roles__roleid__delete"><span class="badge badge_delete">delete</span></a></span></h4></div><div id="panel_accounts__accountid__roles__roleid_" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#accounts__accountid__roles__roleid__delete'" class="list-group-item"><span class="badge badge_delete">delete</span><div class="method_description"><p>To remove role from the user.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="accounts__accountid__roles__roleid__delete"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_delete">delete</span> <span class="parent"></span>/accounts/{accountid}/roles/{roleid}</h4></div><div class="modal-body"><div class="alert alert-info"><p>To remove role from the user.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#accounts__accountid__roles__roleid__delete_request" data-toggle="tab">Request</a></li><li><a href="#accounts__accountid__roles__roleid__delete_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="accounts__accountid__roles__roleid__delete_request"><h3>URI Parameters</h3><ul><li><strong>accountid</strong>: <em>required (string)</em></li><li><strong>roleid</strong>: <em>required (string)</em></li></ul><h3>Headers</h3><ul><li><strong>Authorization</strong>: <em>required (string)</em><p>Authorization request header should specify as HMISUserAuth session_token={sessiontokenvalue}.</p><p><strong>Example</strong>:</p><pre>HMISUserAuth session_token=956048930B39448A8B6ABEDF57BECFFC07E2628546F847149BD42D4BC3CFDC39</pre></li><li><strong>X-HMIS-TrustedApp-Id</strong>: <em>required (string)</em><p>Trusted App id should be provide in this header.</p><p><strong>Example</strong>:</p><pre>MASTER_TRUSTED_APP</pre></li></ul></div><div class="tab-pane" id="accounts__accountid__roles__roleid__delete_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><h2>HTTP status code <a href="http://httpstatus.es/403" target="_blank">403</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Example</strong>:</p><pre><code>{
+   "errors":{
+      "error":[
+         {
+            "code":"ACCESS_DENIED",
+            "message":"User should be associated with atleast one role"
+         }
+      ]
+   }
+}
+</code></pre><h2>HTTP status code <a href="http://httpstatus.es/404" target="_blank">404</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Example</strong>:</p><pre><code>{
+  "errors": {
+    "error": {
+                "code": "ERR_CODE_ROLE_NOT_FOUND",
+                "message": "Role Not associated with the user."
+             }
+    }
+}
+</code></pre></div></div></div></div></div></div></div></div></div></div><div class="panel panel-default"><div class="panel-heading"><h3 id="profiles" class="panel-title">/profiles</h3></div><div class="panel-body"><div class="panel-group"><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_profiles"><span class="parent"></span>/profiles</a> <span class="methods"><a href="#profiles_get"><span class="badge badge_get">get</span></a> <a href="#profiles_post"><span class="badge badge_post">post</span></a></span></h4></div><div id="panel_profiles" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#profiles_get'" class="list-group-item"><span class="badge badge_get">get</span><div class="method_description"><p>To get all Profiles</p></div><div class="clearfix"></div></div><div onclick="window.location.href = '#profiles_post'" class="list-group-item"><span class="badge badge_post">post</span><div class="method_description"><p>TO creat new Profile</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="profiles_get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get</span> <span class="parent"></span>/profiles</h4></div><div class="modal-body"><div class="alert alert-info"><p>To get all Profiles</p></div><ul class="nav nav-tabs"><li class="active"><a href="#profiles_get_request" data-toggle="tab">Request</a></li><li><a href="#profiles_get_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="profiles_get_request"><h3>Headers</h3><ul><li><strong>Authorization</strong>: <em>required (string)</em><p>Authorization request header should specify as HMISUserAuth session_token={sessiontokenvalue}.</p><p><strong>Example</strong>:</p><pre>HMISUserAuth session_token=956048930B39448A8B6ABEDF57BECFFC07E2628546F847149BD42D4BC3CFDC39</pre></li><li><strong>X-HMIS-TrustedApp-Id</strong>: <em>required (string)</em><p>Trusted App id should be provide in this header.</p><p><strong>Example</strong>:</p><pre>MASTER_TRUSTED_APP</pre></li></ul><h3>Query Parameters</h3><ul><li><strong>startIndex</strong>: <em>(string - default: 0)</em></li><li><strong>maxItems</strong>: <em>(string - default: 30)</em></li></ul></div><div class="tab-pane" id="profiles_get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Example</strong>:</p><pre><code>{
+  "profiles":{
+     "pagination":{
+        "from":0,
+        "returned":2,
+        "total":4,
+        "maximum":30,
+        "sort":{
+
+        }
+     },
+     "profile":
+       [
+        {
+           "id":"53b393d0-7400-4a7d-8468-b1f48d52d3f2",
+           "profileName":"ACCOUNT_PROFILE",
+           "profileDescription":"PROFILE FOR ACCOUNT ENTITY",
+           "apiMethods":[
+
+           ]
+        },
+          {
+             "id":"2d7103b6-a24e-446f-81a2-419ebb210e10",
+             "profileName":"MY first Profile",
+             "profileDescription":"Profile Description",
+             "apiMethods":[
+ 
+             ]
+          }
+       ]
+    }
+   }
+</code></pre></div></div></div></div></div></div><div class="modal fade" tabindex="0" id="profiles_post"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_post">post</span> <span class="parent"></span>/profiles</h4></div><div class="modal-body"><div class="alert alert-info"><p>TO creat new Profile</p></div><ul class="nav nav-tabs"><li class="active"><a href="#profiles_post_request" data-toggle="tab">Request</a></li><li><a href="#profiles_post_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="profiles_post_request"><h3>Headers</h3><ul><li><strong>Authorization</strong>: <em>required (string)</em><p>Authorization request header should specify as HMISUserAuth session_token={sessiontokenvalue}.</p><p><strong>Example</strong>:</p><pre>HMISUserAuth session_token=956048930B39448A8B6ABEDF57BECFFC07E2628546F847149BD42D4BC3CFDC39</pre></li><li><strong>X-HMIS-TrustedApp-Id</strong>: <em>required (string)</em><p>Trusted App id should be provide in this header.</p><p><strong>Example</strong>:</p><pre>MASTER_TRUSTED_APP</pre></li></ul><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Example</strong>:</p><pre><code>{
+ "profile":{
+ "profileName":"USR_GET_ACCOUNT_PREFERENCES",
+ "profileDescription":"PROFILE FOR ACCOUNT ENTITY FOR PREFERENCES",
+ "apiMethods":[
+    {
+        "externalId":"USR_GET_ACCOUNT_PREFERENCES",
+        "friendlyName":"USR_GET_ACCOUNT_EMAIL_ADDRESS",
+        "type":"USR_GET_ACCOUNT_EMAI",
+        "authorizationMsg":"To get Email Address"
+    }
+  ]
+}
+}
+</code></pre></div><div class="tab-pane" id="profiles_post_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Example</strong>:</p><pre><code>{
+  "profile":{
+      "id":"06d44778-c5c8-40cd-861e-db0a7f76a0ae",
+      "profileName":"USR_GET_ACCOUNT_EMAIL_ADDRESS",
+      "profileDescription":"PROFILE FOR ACCOUNT ENTITY FOR EMAIL ADDRESS",
+      "apiMethods":[
+            {
+              "externalId":"USR_GET_ACCOUNT_EMAIL_ADDRESS",
+              "friendlyName":"USR_GET_ACCOUNT_EMAIL_ADDRESS",
+              "type":"USR_GET_ACCOUNT_EMAIL",
+              "authorizationMsg":"To get Email Address"
+            }
+      ]
+    }
+}
+</code></pre></div></div></div></div></div></div></div></div></div></div><div class="panel panel-default"><div class="panel-heading"><h3 id="profiles__profileId_" class="panel-title">/profiles/{profileId}</h3></div><div class="panel-body"><div class="panel-group"><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_profiles__profileId_"><span class="parent"></span>/profiles/{profileId}</a> <span class="methods"><a href="#profiles__profileId__put"><span class="badge badge_put">put</span></a> <a href="#profiles__profileId__delete"><span class="badge badge_delete">delete</span></a> <a href="#profiles__profileId__get"><span class="badge badge_get">get</span></a></span></h4></div><div id="panel_profiles__profileId_" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#profiles__profileId__put'" class="list-group-item"><span class="badge badge_put">put</span><div class="method_description"><p>To Update A specific Profile.</p></div><div class="clearfix"></div></div><div onclick="window.location.href = '#profiles__profileId__delete'" class="list-group-item"><span class="badge badge_delete">delete</span><div class="method_description"><p>To Delete A specific Profile</p></div><div class="clearfix"></div></div><div onclick="window.location.href = '#profiles__profileId__get'" class="list-group-item"><span class="badge badge_get">get</span><div class="method_description"><p>To get a Specific Profile Details</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="profiles__profileId__put"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_put">put</span> <span class="parent"></span>/profiles/{profileId}</h4></div><div class="modal-body"><div class="alert alert-info"><p>To Update A specific Profile.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#profiles__profileId__put_request" data-toggle="tab">Request</a></li><li><a href="#profiles__profileId__put_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="profiles__profileId__put_request"><h3>URI Parameters</h3><ul><li><strong>profileId</strong>: <em>required (string)</em></li></ul><h3>Headers</h3><ul><li><strong>Authorization</strong>: <em>required (string)</em><p>Authorization request header should specify as HMISUserAuth session_token={sessiontokenvalue}.</p><p><strong>Example</strong>:</p><pre>HMISUserAuth session_token=956048930B39448A8B6ABEDF57BECFFC07E2628546F847149BD42D4BC3CFDC39</pre></li><li><strong>X-HMIS-TrustedApp-Id</strong>: <em>required (string)</em><p>Trusted App id should be provide in this header.</p><p><strong>Example</strong>:</p><pre>MASTER_TRUSTED_APP</pre></li></ul><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Example</strong>:</p><pre><code>{
+  "profile":{
+  "id":"06d44778-c5c8-40cd-861e-db0a7f76a0ae",
+  "profileName":"USR_GET_ACCOUNT_EMAIL",
+  "profileDescription":"PROFILE FOR ACCOUNT ENTITY FOR EMAIL ADDRESS",
+  "apiMethods":[
+        {
+          "externalId":"USR_GET_ACCOUNT_PREFERENCES",
+          "friendlyName":"USR_GET_ACCOUNT_EMAIL_ADDRESS",
+          "type":"USR_GET_ACCOUNT_EMAI",
+          "authorizationMsg":"To get Email Address"
+        }
+  ]
+}
+}
+</code></pre></div><div class="tab-pane" id="profiles__profileId__put_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Example</strong>:</p><pre><code>{
+  "profile":{
+  "id":"06d44778-c5c8-40cd-861e-db0a7f76a0ae",
+  "profileName":"USR_GET_ACCOUNT_EMAIL",
+    "profileDescription":"PROFILE FOR ACCOUNT ENTITY FOR EMAIL ADDRESS",
+    "apiMethods":[
+      {
+        "externalId":"USR_GET_ACCOUNT_PREFERENCES",
+        "friendlyName":"USR_GET_ACCOUNT_EMAIL_ADDRESS",
+        "type":"USR_GET_ACCOUNT_EMAI",
+        "authorizationMsg":"To get Email Address"
+      }
+    ]
+  }
+}
+</code></pre><h2>HTTP status code <a href="http://httpstatus.es/404" target="_blank">404</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Example</strong>:</p><pre><code>{
+  "errors": {
+    "error": {
+                "code": "ERR_CODE_PROFILE_NOT_FOUND",
+                "message": "Profile Not found."
+             }
+    }
+}
+</code></pre></div></div></div></div></div></div><div class="modal fade" tabindex="0" id="profiles__profileId__delete"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_delete">delete</span> <span class="parent"></span>/profiles/{profileId}</h4></div><div class="modal-body"><div class="alert alert-info"><p>To Delete A specific Profile</p></div><ul class="nav nav-tabs"><li class="active"><a href="#profiles__profileId__delete_request" data-toggle="tab">Request</a></li><li><a href="#profiles__profileId__delete_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="profiles__profileId__delete_request"><h3>URI Parameters</h3><ul><li><strong>profileId</strong>: <em>required (string)</em></li></ul><h3>Headers</h3><ul><li><strong>Authorization</strong>: <em>required (string)</em><p>Authorization request header should specify as HMISUserAuth session_token={sessiontokenvalue}.</p><p><strong>Example</strong>:</p><pre>HMISUserAuth session_token=956048930B39448A8B6ABEDF57BECFFC07E2628546F847149BD42D4BC3CFDC39</pre></li><li><strong>X-HMIS-TrustedApp-Id</strong>: <em>required (string)</em><p>Trusted App id should be provide in this header.</p><p><strong>Example</strong>:</p><pre>MASTER_TRUSTED_APP</pre></li></ul></div><div class="tab-pane" id="profiles__profileId__delete_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Example</strong>:</p><pre><code>{"profile":{}}
+</code></pre><h2>HTTP status code <a href="http://httpstatus.es/404" target="_blank">404</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Example</strong>:</p><pre><code>{
+  "errors": {
+    "error": {
+                "code": "ERR_CODE_PROFILE_NOT_FOUND",
+                "message": "Profile Not found."
+             }
+    }
+}
+</code></pre></div></div></div></div></div></div><div class="modal fade" tabindex="0" id="profiles__profileId__get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get</span> <span class="parent"></span>/profiles/{profileId}</h4></div><div class="modal-body"><div class="alert alert-info"><p>To get a Specific Profile Details</p></div><ul class="nav nav-tabs"><li class="active"><a href="#profiles__profileId__get_request" data-toggle="tab">Request</a></li><li><a href="#profiles__profileId__get_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="profiles__profileId__get_request"><h3>URI Parameters</h3><ul><li><strong>profileId</strong>: <em>required (string)</em></li></ul><h3>Headers</h3><ul><li><strong>Authorization</strong>: <em>required (string)</em><p>Authorization request header should specify as HMISUserAuth session_token={sessiontokenvalue}.</p><p><strong>Example</strong>:</p><pre>HMISUserAuth session_token=956048930B39448A8B6ABEDF57BECFFC07E2628546F847149BD42D4BC3CFDC39</pre></li><li><strong>X-HMIS-TrustedApp-Id</strong>: <em>required (string)</em><p>Trusted App id should be provide in this header.</p><p><strong>Example</strong>:</p><pre>MASTER_TRUSTED_APP</pre></li></ul></div><div class="tab-pane" id="profiles__profileId__get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Example</strong>:</p><pre><code>{
+  "profile":{
+  "id":"06d44778-c5c8-40cd-861e-db0a7f76a0ae",
+  "profileName":"USR_GET_ACCOUNT_EMAIL",
+    "profileDescription":"PROFILE FOR ACCOUNT ENTITY FOR EMAIL ADDRESS",
+    "apiMethods":[
+      {
+        "externalId":"USR_GET_ACCOUNT_PREFERENCES",
+        "friendlyName":"USR_GET_ACCOUNT_EMAIL_ADDRESS",
+        "type":"USR_GET_ACCOUNT_EMAI",
+        "authorizationMsg":"To get Email Address"
+      }
+    ]
+  }
+}
+</code></pre><h2>HTTP status code <a href="http://httpstatus.es/404" target="_blank">404</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Example</strong>:</p><pre><code>{
+  "errors": {
+    "error": {
+                "code": "ERR_CODE_PROFILE_NOT_FOUND",
+                "message": "Profile Not found."
+             }
+    }
+}
+</code></pre></div></div></div></div></div></div></div></div></div></div><div class="panel panel-default"><div class="panel-heading"><h3 id="sharingrules" class="panel-title">/sharingrules</h3></div><div class="panel-body"><div class="panel-group"><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_sharingrules"><span class="parent"></span>/sharingrules</a> <span class="methods"><a href="#sharingrules_post"><span class="badge badge_post">post</span></a></span></h4></div><div id="panel_sharingrules" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#sharingrules_post'" class="list-group-item"><span class="badge badge_post">post</span><div class="method_description"><p>To create a New sharing rule.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="sharingrules_post"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_post">post</span> <span class="parent"></span>/sharingrules</h4></div><div class="modal-body"><div class="alert alert-info"><p>To create a New sharing rule.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#sharingrules_post_request" data-toggle="tab">Request</a></li><li><a href="#sharingrules_post_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="sharingrules_post_request"><h3>Headers</h3><ul><li><strong>Authorization</strong>: <em>required (string)</em><p>Authorization request header should specify as HMISUserAuth session_token={sessiontokenvalue}.</p><p><strong>Example</strong>:</p><pre>HMISUserAuth session_token=956048930B39448A8B6ABEDF57BECFFC07E2628546F847149BD42D4BC3CFDC39</pre></li><li><strong>X-HMIS-TrustedApp-Id</strong>: <em>required (string)</em><p>Trusted App id should be provide in this header.</p><p><strong>Example</strong>:</p><pre>MASTER_TRUSTED_APP</pre></li></ul><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Example</strong>:</p><pre><code>{
+ "sharingRule":{
+    "fromOrganization":"8b7de9c5-6589-48ac-858a-516c2e50f7dd",
+    "toOrganization":"8b7de9c5-6589-48ac-858a-516c2e50f7dd",
+    "projects":[
+        {
+          "projectId":"8b7de9c5-6589-48ac-858a-516c2e50f7de"
+        }
+    ],
+    "enrollment":[
+        {
+          "enrollmentId":"8b7de9c5-6589-48ac-858a-516c2e50f7df"
+        }
+    ],
+    "roles":[
+        {
+          "id":"8b7de9c5-6589-48ac-858a-516c2e50f7dc"
+        }
+    ]
+  }
+}
+</code></pre></div><div class="tab-pane" id="sharingrules_post_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Example</strong>:</p><pre><code>{
+  "SharingRules":{
+    "pagination":{
+      "from":0,
+      "maximum":30,
+      "sort":{
+      }
+    },
+    "sharingRules":[
+      {
+        "sharingRuleId":"a0d3ab73-b7b0-41f6-9ea4-dad744ffe823",
+        "fromOrganization":"8b7de9c5-6589-48ac-858a-516c2e50f7dd",
+        "toOrganization":"8b7de9c5-6589-48ac-858a-516c2e50f7dd",
+        "projects":[
+          {
+            "projectId":"8b7de9c5-6589-48ac-858a-516c2e50f7de"
+          }
+        ],
+        "enrollment":[
+          {
+            "enrollmentId":"8b7de9c5-6589-48ac-858a-516c2e50f7df"
+          }
+        ],
+        "roles":[
+          {
+            "id":"8b7de9c5-6589-48ac-858a-516c2e50f7dc",
+            "roleName":"Sr. Accountant Role",
+            "roleDescription":"Sr. Accountant Role"
+          }
+        ]
+      },
+      {
+        "sharingRuleId":"b64d75a1-da9f-4ddf-bcad-83d2d8004281",
+        "fromOrganization":"8b7de9c5-6589-48ac-858a-516c2e50f7dd",
+        "toOrganization":"8b7de9c5-6589-48ac-858a-516c2e50f7dd",
+        "projects":[
+          {
+            "projectId":"8b7de9c5-6589-48ac-858a-516c2e50f7de"
+          }
+        ],
+        "enrollment":[
+          {
+            "enrollmentId":"8b7de9c5-6589-48ac-858a-516c2e50f7df"
+          }
+        ],
+        "roles":[
+          {
+            "id":"8b7de9c5-6589-48ac-858a-516c2e50f7dc",
+            "roleName":"Sr. Accountant Role",
+            "roleDescription":"Sr. Accountant Role"
+          }
+        ]
+      },
+      {
+        "sharingRuleId":"a3081c73-4f2c-4422-b40b-0a2a9bf61c39",
+        "fromOrganization":"8b7de9c5-6589-48ac-858a-516c2e50f7dd",
+        "toOrganization":"8b7de9c5-6589-48ac-858a-516c2e50f7dd",
+        "projects":[
+          {
+            "projectId":"8b7de9c5-6589-48ac-858a-516c2e50f7de"
+          }
+        ],
+        "enrollment":[
+          {
+            "enrollmentId":"8b7de9c5-6589-48ac-858a-516c2e50f7df"
+          }
+        ],
+        "roles":[
+          {
+            "id":"2d7103b6-a24e-446f-81a2-419ebb210e11",
+            "roleName":"Admin Role",
+            "roleDescription":"Admin Role"
+          }
+        ]
+      }
+    ]
+  }
+}
+</code></pre><h2>HTTP status code <a href="http://httpstatus.es/404" target="_blank">404</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Example</strong>:</p><pre><code>{
+  "errors": {
+    "error": {
+                "code": "ERR_CODE_PROJECT_NOT_FOUND",
+                "message": "Project Not found."
+             },
+    "error": {
+                "code": "ERR_CODE_ENROLLMENT_NOT_FOUND",
+                "message": "Enrollment Not found."
+             },
+    "error": {
+                "code": "ERR_CODE_ROLE_NOT_FOUND",
+                "message": "Role Not found."
+             }
+    }
+} 
+</code></pre></div></div></div></div></div></div></div></div></div></div><div class="panel panel-default"><div class="panel-heading"><h3 id="sharingrules__sharingruleid_" class="panel-title">/sharingrules/{sharingruleid}</h3></div><div class="panel-body"><div class="panel-group"><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_sharingrules__sharingruleid_"><span class="parent"></span>/sharingrules/{sharingruleid}</a> <span class="methods"><a href="#sharingrules__sharingruleid__put"><span class="badge badge_put">put</span></a> <a href="#sharingrules__sharingruleid__delete"><span class="badge badge_delete">delete</span></a></span></h4></div><div id="panel_sharingrules__sharingruleid_" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#sharingrules__sharingruleid__put'" class="list-group-item"><span class="badge badge_put">put</span><div class="method_description"><p>To update a specifc Sharing Rule</p></div><div class="clearfix"></div></div><div onclick="window.location.href = '#sharingrules__sharingruleid__delete'" class="list-group-item"><span class="badge badge_delete">delete</span><div class="method_description"><p>To Delete A Specifc Sharing Rule</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="sharingrules__sharingruleid__put"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_put">put</span> <span class="parent"></span>/sharingrules/{sharingruleid}</h4></div><div class="modal-body"><div class="alert alert-info"><p>To update a specifc Sharing Rule</p></div><ul class="nav nav-tabs"><li class="active"><a href="#sharingrules__sharingruleid__put_request" data-toggle="tab">Request</a></li><li><a href="#sharingrules__sharingruleid__put_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="sharingrules__sharingruleid__put_request"><h3>URI Parameters</h3><ul><li><strong>sharingruleid</strong>: <em>required (string)</em></li></ul><h3>Headers</h3><ul><li><strong>Authorization</strong>: <em>required (string)</em><p>Authorization request header should specify as HMISUserAuth session_token={sessiontokenvalue}.</p><p><strong>Example</strong>:</p><pre>HMISUserAuth session_token=956048930B39448A8B6ABEDF57BECFFC07E2628546F847149BD42D4BC3CFDC39</pre></li><li><strong>X-HMIS-TrustedApp-Id</strong>: <em>required (string)</em><p>Trusted App id should be provide in this header.</p><p><strong>Example</strong>:</p><pre>MASTER_TRUSTED_APP</pre></li></ul><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Example</strong>:</p><pre><code>{
+  "sharingRule":{
+    "sharingRuleId":"a0d3ab73-b7b0-41f6-9ea4-dad744ffe823",
+    "fromOrganization":"8b7de9c5-6589-48ac-858a-516c2e50f7dd",
+    "toOrganization":"8b7de9c5-6589-48ac-858a-516c2e50f7dd",
+    "projects":[
+      {
+        "projectId":"8b7de9c5-6589-48ac-858a-516c2e50f7de"
+      }
+    ],
+    "enrollment":[
+      {
+        "enrollmentId":"8b7de9c5-6589-48ac-858a-516c2e50f7df"
+      }
+    ],
+    "roles":[
+      {
+        "id":"8b7de9c5-6589-48ac-858a-516c2e50f7dc"
+      }
+    ]
+  }
+}
+</code></pre></div><div class="tab-pane" id="sharingrules__sharingruleid__put_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Example</strong>:</p><pre><code>{
+  "sharingRule":{
+    "sharingRuleId":"a0d3ab73-b7b0-41f6-9ea4-dad744ffe823",
+    "fromOrganization":"8b7de9c5-6589-48ac-858a-516c2e50f7dd",
+    "toOrganization":"8b7de9c5-6589-48ac-858a-516c2e50f7dd",
+    "projects":[
+      {
+        "projectId":"8b7de9c5-6589-48ac-858a-516c2e50f7de"
+      }
+    ],
+    "enrollment":[
+      {
+        "enrollmentId":"8b7de9c5-6589-48ac-858a-516c2e50f7df"
+      }
+    ],
+    "roles":[
+      {
+        "id":"8b7de9c5-6589-48ac-858a-516c2e50f7dc"
+      }
+    ]
+  }
+}
+</code></pre><h2>HTTP status code <a href="http://httpstatus.es/404" target="_blank">404</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Example</strong>:</p><pre><code>{
+  "errors": {
+    "error": {
+                "code": "ERR_CODE_SHARING_RULE_NOT_FOUND",
+                "message": "SharingRule Not found."
+             },
+    "error": {
+                "code": "ERR_CODE_PROJECT_NOT_FOUND",
+                "message": "Project Not found."
+             },
+    "error": {
+                "code": "ERR_CODE_ENROLLMENT_NOT_FOUND",
+                "message": "Enrollment Not found."
+             },
+    "error": {
+                "code": "ERR_CODE_ROLE_NOT_FOUND",
+                "message": "Role Not found."
+             }
+    }
+}  
+</code></pre></div></div></div></div></div></div><div class="modal fade" tabindex="0" id="sharingrules__sharingruleid__delete"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_delete">delete</span> <span class="parent"></span>/sharingrules/{sharingruleid}</h4></div><div class="modal-body"><div class="alert alert-info"><p>To Delete A Specifc Sharing Rule</p></div><ul class="nav nav-tabs"><li class="active"><a href="#sharingrules__sharingruleid__delete_request" data-toggle="tab">Request</a></li><li><a href="#sharingrules__sharingruleid__delete_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="sharingrules__sharingruleid__delete_request"><h3>URI Parameters</h3><ul><li><strong>sharingruleid</strong>: <em>required (string)</em></li></ul><h3>Headers</h3><ul><li><strong>Authorization</strong>: <em>required (string)</em><p>Authorization request header should specify as HMISUserAuth session_token={sessiontokenvalue}.</p><p><strong>Example</strong>:</p><pre>HMISUserAuth session_token=956048930B39448A8B6ABEDF57BECFFC07E2628546F847149BD42D4BC3CFDC39</pre></li><li><strong>X-HMIS-TrustedApp-Id</strong>: <em>required (string)</em><p>Trusted App id should be provide in this header.</p><p><strong>Example</strong>:</p><pre>MASTER_TRUSTED_APP</pre></li></ul></div><div class="tab-pane" id="sharingrules__sharingruleid__delete_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Example</strong>:</p><pre><code>{"sharingRule":{}}
+</code></pre><h2>HTTP status code <a href="http://httpstatus.es/404" target="_blank">404</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Example</strong>:</p><pre><code>{
+  "errors": {
+    "error": {
+                "code": "ERR_CODE_SHARING_RULE_NOT_FOUND",
+                "message": "SharingRule Not found."
+             }
+    }
+}
+</code></pre></div></div></div></div></div></div></div></div></div></div><div class="panel panel-default"><div class="panel-heading"><h3 id="roles" class="panel-title">/roles</h3></div><div class="panel-body"><div class="panel-group"><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_roles"><span class="parent"></span>/roles</a> <span class="methods"><a href="#roles_get"><span class="badge badge_get">get</span></a> <a href="#roles_post"><span class="badge badge_post">post</span></a></span></h4></div><div id="panel_roles" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#roles_get'" class="list-group-item"><span class="badge badge_get">get</span><div class="method_description"><p>To get All the roles.</p></div><div class="clearfix"></div></div><div onclick="window.location.href = '#roles_post'" class="list-group-item"><span class="badge badge_post">post</span><div class="method_description"><p>To create A new role</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="roles_get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get</span> <span class="parent"></span>/roles</h4></div><div class="modal-body"><div class="alert alert-info"><p>To get All the roles.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#roles_get_request" data-toggle="tab">Request</a></li><li><a href="#roles_get_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="roles_get_request"><h3>Headers</h3><ul><li><strong>Authorization</strong>: <em>required (string)</em><p>Authorization request header should specify as HMISUserAuth session_token={sessiontokenvalue}.</p><p><strong>Example</strong>:</p><pre>HMISUserAuth session_token=956048930B39448A8B6ABEDF57BECFFC07E2628546F847149BD42D4BC3CFDC39</pre></li><li><strong>X-HMIS-TrustedApp-Id</strong>: <em>required (string)</em><p>Trusted App id should be provide in this header.</p><p><strong>Example</strong>:</p><pre>MASTER_TRUSTED_APP</pre></li></ul><h3>Query Parameters</h3><ul><li><strong>startIndex</strong>: <em>(string - default: 0)</em></li><li><strong>maxItems</strong>: <em>(string - default: 30)</em></li></ul></div><div class="tab-pane" id="roles_get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Example</strong>:</p><pre><code>{
+  "roles":{
+    "pagination":{
+      "from":0,
+      "returned":2,
+      "total":3,
+      "maximum":30,
+      "sort":{
+
+      }
+    },
+    "role":[
+      {
+        "id":"2d7103b6-a24e-446f-81a2-419ebb210e10",
+        "roleName":"Super Admin Role",
+        "roleDescription":"Super Admin Role"
+      },
+      {
+        "id":"2d7103b6-a24e-446f-81a2-419ebb210e11",
+        "roleName":"Admin Role",
+        "roleDescription":"Admin Role",
+        "parentRole":{
+          "id":"2d7103b6-a24e-446f-81a2-419ebb210e10",
+          "roleName":"Super Admin Role",
+          "roleDescription":"Super Admin Role"
+        }
+      }
+    ]
+  }
+}
+</code></pre></div></div></div></div></div></div><div class="modal fade" tabindex="0" id="roles_post"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_post">post</span> <span class="parent"></span>/roles</h4></div><div class="modal-body"><div class="alert alert-info"><p>To create A new role</p></div><ul class="nav nav-tabs"><li class="active"><a href="#roles_post_request" data-toggle="tab">Request</a></li><li><a href="#roles_post_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="roles_post_request"><h3>Headers</h3><ul><li><strong>Authorization</strong>: <em>required (string)</em><p>Authorization request header should specify as HMISUserAuth session_token={sessiontokenvalue}.</p><p><strong>Example</strong>:</p><pre>HMISUserAuth session_token=956048930B39448A8B6ABEDF57BECFFC07E2628546F847149BD42D4BC3CFDC39</pre></li><li><strong>X-HMIS-TrustedApp-Id</strong>: <em>required (string)</em><p>Trusted App id should be provide in this header.</p><p><strong>Example</strong>:</p><pre>MASTER_TRUSTED_APP</pre></li></ul><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Example</strong>:</p><pre><code>{
+  "role":{
+    "roleName":"Project Manager Role",
+    "roleDescription":"Project Manager Role"
+  }
+}
+</code></pre></div><div class="tab-pane" id="roles_post_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Example</strong>:</p><pre><code>{
+  "role":{
+    "id":"2d7103b6-a24e-446f-81a2-419ebb210e11",
+    "roleName":"Project Manager Role",
+    "roleDescription":"Project Manager Role"
+  }
+}
+</code></pre></div></div></div></div></div></div></div></div></div></div><div class="panel panel-default"><div class="panel-heading"><h3 id="roles__roleid_" class="panel-title">/roles/{roleid}</h3></div><div class="panel-body"><div class="panel-group"><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_roles__roleid_"><span class="parent"></span>/roles/{roleid}</a> <span class="methods"><a href="#roles__roleid__put"><span class="badge badge_put">put</span></a> <a href="#roles__roleid__delete"><span class="badge badge_delete">delete</span></a></span></h4></div><div id="panel_roles__roleid_" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#roles__roleid__put'" class="list-group-item"><span class="badge badge_put">put</span><div class="method_description"><p>To update a specific role</p></div><div class="clearfix"></div></div><div onclick="window.location.href = '#roles__roleid__delete'" class="list-group-item"><span class="badge badge_delete">delete</span><div class="method_description"><p>To delete a Specific role</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="roles__roleid__put"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_put">put</span> <span class="parent"></span>/roles/{roleid}</h4></div><div class="modal-body"><div class="alert alert-info"><p>To update a specific role</p></div><ul class="nav nav-tabs"><li class="active"><a href="#roles__roleid__put_request" data-toggle="tab">Request</a></li><li><a href="#roles__roleid__put_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="roles__roleid__put_request"><h3>URI Parameters</h3><ul><li><strong>roleid</strong>: <em>required (string)</em></li></ul><h3>Headers</h3><ul><li><strong>Authorization</strong>: <em>required (string)</em><p>Authorization request header should specify as HMISUserAuth session_token={sessiontokenvalue}.</p><p><strong>Example</strong>:</p><pre>HMISUserAuth session_token=956048930B39448A8B6ABEDF57BECFFC07E2628546F847149BD42D4BC3CFDC39</pre></li><li><strong>X-HMIS-TrustedApp-Id</strong>: <em>required (string)</em><p>Trusted App id should be provide in this header.</p><p><strong>Example</strong>:</p><pre>MASTER_TRUSTED_APP</pre></li></ul><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Example</strong>:</p><pre><code>{
+  "role":{
+    "id":"2d7103b6-a24e-446f-81a2-419ebb210e11",
+    "roleName":"Project Manager",
+    "roleDescription":"Project Manager"
+  }
+}
+</code></pre></div><div class="tab-pane" id="roles__roleid__put_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Example</strong>:</p><pre><code>{
+   "role":{
+     "id":"2d7103b6-a24e-446f-81a2-419ebb210e11",
+     "roleName":"Project Manager",
+     "roleDescription":"Project Manager"
+   }
+ }
+</code></pre><h2>HTTP status code <a href="http://httpstatus.es/404" target="_blank">404</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Example</strong>:</p><pre><code>{
+  "errors": {
+    "error": {
+                "code": "ERR_CODE_ROLE_NOT_FOUND",
+                "message": "Role Not found."
+             }
+    }
+}
+</code></pre></div></div></div></div></div></div><div class="modal fade" tabindex="0" id="roles__roleid__delete"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_delete">delete</span> <span class="parent"></span>/roles/{roleid}</h4></div><div class="modal-body"><div class="alert alert-info"><p>To delete a Specific role</p></div><ul class="nav nav-tabs"><li class="active"><a href="#roles__roleid__delete_request" data-toggle="tab">Request</a></li><li><a href="#roles__roleid__delete_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="roles__roleid__delete_request"><h3>URI Parameters</h3><ul><li><strong>roleid</strong>: <em>required (string)</em></li></ul><h3>Headers</h3><ul><li><strong>Authorization</strong>: <em>required (string)</em><p>Authorization request header should specify as HMISUserAuth session_token={sessiontokenvalue}.</p><p><strong>Example</strong>:</p><pre>HMISUserAuth session_token=956048930B39448A8B6ABEDF57BECFFC07E2628546F847149BD42D4BC3CFDC39</pre></li><li><strong>X-HMIS-TrustedApp-Id</strong>: <em>required (string)</em><p>Trusted App id should be provide in this header.</p><p><strong>Example</strong>:</p><pre>MASTER_TRUSTED_APP</pre></li></ul></div><div class="tab-pane" id="roles__roleid__delete_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Example</strong>:</p><pre><code>{"role":{}}
+</code></pre><h2>HTTP status code <a href="http://httpstatus.es/404" target="_blank">404</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Example</strong>:</p><pre><code>{
+  "errors": {
+    "error": {
+                "code": "ERR_CODE_ROLE_NOT_FOUND",
+                "message": "Role Not found."
+             }
+    }
+}
+</code></pre></div></div></div></div></div></div></div></div></div></div><div class="panel panel-default"><div class="panel-heading"><h3 id="permissionsets" class="panel-title">/permissionsets</h3></div><div class="panel-body"><div class="panel-group"><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_permissionsets"><span class="parent"></span>/permissionsets</a> <span class="methods"><a href="#permissionsets_post"><span class="badge badge_post">post</span></a></span></h4></div><div id="panel_permissionsets" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#permissionsets_post'" class="list-group-item"><span class="badge badge_post">post</span><div class="method_description"><p>To create a new Permission Set.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="permissionsets_post"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_post">post</span> <span class="parent"></span>/permissionsets</h4></div><div class="modal-body"><div class="alert alert-info"><p>To create a new Permission Set.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#permissionsets_post_request" data-toggle="tab">Request</a></li><li><a href="#permissionsets_post_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="permissionsets_post_request"><h3>Headers</h3><ul><li><strong>Authorization</strong>: <em>required (string)</em><p>Authorization request header should specify as HMISUserAuth session_token={sessiontokenvalue}.</p><p><strong>Example</strong>:</p><pre>HMISUserAuth session_token=956048930B39448A8B6ABEDF57BECFFC07E2628546F847149BD42D4BC3CFDC39</pre></li><li><strong>X-HMIS-TrustedApp-Id</strong>: <em>required (string)</em><p>Trusted App id should be provide in this header.</p><p><strong>Example</strong>:</p><pre>MASTER_TRUSTED_APP</pre></li></ul><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Example</strong>:</p><pre><code>{
+  "permissionSet":{
+    "permissionSetName":"USR_GET_ACCOUNT_PREFERENCES_PERMISSIONSET",
+    "apiMethods":[
+      {
+        "externalId":"USR_UPDATE_ACCOUNT_PREFERENCES",
+        "friendlyName":"USR_GET_ACCOUNT_EMAIL_ADDRESS",
+        "type":"USR_GET_ACCOUNT_EMAI",
+        "authorizationMsg":"To get Email Address"
+      }
+    ]
+  }
+}
+</code></pre></div><div class="tab-pane" id="permissionsets_post_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Example</strong>:</p><pre><code>{
+  "permissionSet":{
+    "permissionSetId":"2d7103b6-a24e-446f-81a2-419ebb210e21",
+    "permissionSetName":"USR_GET_ACCOUNT_PREFERENCES_PERMISSIONSET",
+    "apiMethods":[
+      {
+        "externalId":"USR_UPDATE_ACCOUNT_PREFERENCES",
+        "friendlyName":"USR_GET_ACCOUNT_EMAIL_ADDRESS",
+        "type":"USR_GET_ACCOUNT_EMAI",
+        "authorizationMsg":"To get Email Address"
+      }
+    ]
+  }
+}    
+</code></pre></div></div></div></div></div></div></div></div></div></div><div class="panel panel-default"><div class="panel-heading"><h3 id="permissionsets__permissionsetid_" class="panel-title">/permissionsets/{permissionsetid}</h3></div><div class="panel-body"><div class="panel-group"><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_permissionsets__permissionsetid_"><span class="parent"></span>/permissionsets/{permissionsetid}</a> <span class="methods"><a href="#permissionsets__permissionsetid__put"><span class="badge badge_put">put</span></a> <a href="#permissionsets__permissionsetid__delete"><span class="badge badge_delete">delete</span></a> <a href="#permissionsets__permissionsetid__get"><span class="badge badge_get">get</span></a></span></h4></div><div id="panel_permissionsets__permissionsetid_" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#permissionsets__permissionsetid__put'" class="list-group-item"><span class="badge badge_put">put</span><div class="method_description"><p>To update a Specific Permission Set</p></div><div class="clearfix"></div></div><div onclick="window.location.href = '#permissionsets__permissionsetid__delete'" class="list-group-item"><span class="badge badge_delete">delete</span><div class="method_description"><p>To Delete a specific Permission Set</p></div><div class="clearfix"></div></div><div onclick="window.location.href = '#permissionsets__permissionsetid__get'" class="list-group-item"><span class="badge badge_get">get</span><div class="method_description"><p>To get Details About a specific Permision Set</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="permissionsets__permissionsetid__put"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_put">put</span> <span class="parent"></span>/permissionsets/{permissionsetid}</h4></div><div class="modal-body"><div class="alert alert-info"><p>To update a Specific Permission Set</p></div><ul class="nav nav-tabs"><li class="active"><a href="#permissionsets__permissionsetid__put_request" data-toggle="tab">Request</a></li><li><a href="#permissionsets__permissionsetid__put_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="permissionsets__permissionsetid__put_request"><h3>URI Parameters</h3><ul><li><strong>permissionsetid</strong>: <em>required (string)</em></li></ul><h3>Headers</h3><ul><li><strong>Authorization</strong>: <em>required (string)</em><p>Authorization request header should specify as HMISUserAuth session_token={sessiontokenvalue}.</p><p><strong>Example</strong>:</p><pre>HMISUserAuth session_token=956048930B39448A8B6ABEDF57BECFFC07E2628546F847149BD42D4BC3CFDC39</pre></li><li><strong>X-HMIS-TrustedApp-Id</strong>: <em>required (string)</em><p>Trusted App id should be provide in this header.</p><p><strong>Example</strong>:</p><pre>MASTER_TRUSTED_APP</pre></li></ul><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Example</strong>:</p><pre><code>{
+  "permissionSet":{
+    "permissionSetId":"2d7103b6-a24e-446f-81a2-419ebb210e21",
+    "permissionSetName":"USR_GET_ACCOUNT_PREFERENCES_PERMISSIONSET",
+    "apiMethods":[
+      {
+        "externalId":"USR_UPDATE_ACCOUNT_PREFERENCES",
+        "friendlyName":"USR_GET_ACCOUNT_EMAIL_ADDRESS",
+        "type":"USR_GET_ACCOUNT_EMAI",
+        "authorizationMsg":"To get Email Address"
+      }
+    ]
+  }
+}
+</code></pre></div><div class="tab-pane" id="permissionsets__permissionsetid__put_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Example</strong>:</p><pre><code>{
+  "permissionSet":{
+    "permissionSetId":"2d7103b6-a24e-446f-81a2-419ebb210e21",
+    "permissionSetName":"USR_GET_ACCOUNT_PREFERENCES_PERMISSIONSET",
+    "apiMethods":[
+      {
+        "externalId":"USR_UPDATE_ACCOUNT_PREFERENCES",
+        "friendlyName":"USR_GET_ACCOUNT_EMAIL_ADDRESS",
+        "type":"USR_GET_ACCOUNT_EMAI",
+        "authorizationMsg":"To get Email Address"
+      }
+    ]
+  }
+}
+</code></pre><h2>HTTP status code <a href="http://httpstatus.es/404" target="_blank">404</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Example</strong>:</p><pre><code>{
+  "errors": {
+    "error": {
+                "code": "ERR_CODE_PERMISSION_NOT_FOUND",
+                "message": "PermissionSet Not found."
+             }
+    }
+}
+</code></pre></div></div></div></div></div></div><div class="modal fade" tabindex="0" id="permissionsets__permissionsetid__delete"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_delete">delete</span> <span class="parent"></span>/permissionsets/{permissionsetid}</h4></div><div class="modal-body"><div class="alert alert-info"><p>To Delete a specific Permission Set</p></div><ul class="nav nav-tabs"><li class="active"><a href="#permissionsets__permissionsetid__delete_request" data-toggle="tab">Request</a></li><li><a href="#permissionsets__permissionsetid__delete_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="permissionsets__permissionsetid__delete_request"><h3>URI Parameters</h3><ul><li><strong>permissionsetid</strong>: <em>required (string)</em></li></ul><h3>Headers</h3><ul><li><strong>Authorization</strong>: <em>required (string)</em><p>Authorization request header should specify as HMISUserAuth session_token={sessiontokenvalue}.</p><p><strong>Example</strong>:</p><pre>HMISUserAuth session_token=956048930B39448A8B6ABEDF57BECFFC07E2628546F847149BD42D4BC3CFDC39</pre></li><li><strong>X-HMIS-TrustedApp-Id</strong>: <em>required (string)</em><p>Trusted App id should be provide in this header.</p><p><strong>Example</strong>:</p><pre>MASTER_TRUSTED_APP</pre></li></ul></div><div class="tab-pane" id="permissionsets__permissionsetid__delete_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Example</strong>:</p><pre><code>{"permissionSet":{}}
+</code></pre><h2>HTTP status code <a href="http://httpstatus.es/404" target="_blank">404</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Example</strong>:</p><pre><code>{
+  "errors": {
+    "error": {
+                "code": "ERR_CODE_PERMISSION_NOT_FOUND",
+                "message": "PermissionSet Not found."
+             }
+    }
+}
+</code></pre></div></div></div></div></div></div><div class="modal fade" tabindex="0" id="permissionsets__permissionsetid__get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get</span> <span class="parent"></span>/permissionsets/{permissionsetid}</h4></div><div class="modal-body"><div class="alert alert-info"><p>To get Details About a specific Permision Set</p></div><ul class="nav nav-tabs"><li class="active"><a href="#permissionsets__permissionsetid__get_request" data-toggle="tab">Request</a></li><li><a href="#permissionsets__permissionsetid__get_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="permissionsets__permissionsetid__get_request"><h3>URI Parameters</h3><ul><li><strong>permissionsetid</strong>: <em>required (string)</em></li></ul><h3>Headers</h3><ul><li><strong>Authorization</strong>: <em>required (string)</em><p>Authorization request header should specify as HMISUserAuth session_token={sessiontokenvalue}.</p><p><strong>Example</strong>:</p><pre>HMISUserAuth session_token=956048930B39448A8B6ABEDF57BECFFC07E2628546F847149BD42D4BC3CFDC39</pre></li><li><strong>X-HMIS-TrustedApp-Id</strong>: <em>required (string)</em><p>Trusted App id should be provide in this header.</p><p><strong>Example</strong>:</p><pre>MASTER_TRUSTED_APP</pre></li></ul></div><div class="tab-pane" id="permissionsets__permissionsetid__get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Example</strong>:</p><pre><code>{
+   "permissionSet":{
+     "permissionSetId":"2d7103b6-a24e-446f-81a2-419ebb210e21",
+     "permissionSetName":"USR_GET_ACCOUNT_PREFERENCES_PERMISSIONSET",
+     "apiMethods":[
+       {
+         "externalId":"USR_UPDATE_ACCOUNT_PREFERENCES",
+         "friendlyName":"USR_GET_ACCOUNT_EMAIL_ADDRESS",
+         "type":"USR_GET_ACCOUNT_EMAI",
+         "authorizationMsg":"To get Email Address"
+       }
+     ]
+   }
+ }                   
+</code></pre><h2>HTTP status code <a href="http://httpstatus.es/404" target="_blank">404</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Example</strong>:</p><pre><code>{
+  "errors": {
+    "error": {
+                "code": "ERR_CODE_PERMISSION_NOT_FOUND",
+                "message": "PermissionSet Not found."
+             }
+    }
+}
+</code></pre></div></div></div></div></div></div></div></div></div></div><div class="panel panel-default"><div class="panel-heading"><h3 id="permissionsets__username__permissionsetassignments" class="panel-title">/permissionsets/{username}/permissionsetassignments</h3></div><div class="panel-body"><div class="panel-group"><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_permissionsets__username__permissionsetassignments"><span class="parent"></span>/permissionsets/{username}/permissionsetassignments</a> <span class="methods"><a href="#permissionsets__username__permissionsetassignments_post"><span class="badge badge_post">post</span></a></span></h4></div><div id="panel_permissionsets__username__permissionsetassignments" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#permissionsets__username__permissionsetassignments_post'" class="list-group-item"><span class="badge badge_post">post</span><div class="method_description"><p>To Assign a Permission to A user <b>Note:</b> /permissionset/hmisuser/assignPermissionSet</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="permissionsets__username__permissionsetassignments_post"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_post">post</span> <span class="parent"></span>/permissionsets/{username}/permissionsetassignments</h4></div><div class="modal-body"><div class="alert alert-info"><p>To Assign a Permission to A user <b>Note:</b> /permissionset/hmisuser/assignPermissionSet</p></div><ul class="nav nav-tabs"><li class="active"><a href="#permissionsets__username__permissionsetassignments_post_request" data-toggle="tab">Request</a></li><li><a href="#permissionsets__username__permissionsetassignments_post_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="permissionsets__username__permissionsetassignments_post_request"><h3>URI Parameters</h3><ul><li><strong>username</strong>: <em>required (string)</em></li></ul><h3>Headers</h3><ul><li><strong>Authorization</strong>: <em>required (string)</em><p>Authorization request header should specify as HMISUserAuth session_token={sessiontokenvalue}.</p><p><strong>Example</strong>:</p><pre>HMISUserAuth session_token=956048930B39448A8B6ABEDF57BECFFC07E2628546F847149BD42D4BC3CFDC39</pre></li><li><strong>X-HMIS-TrustedApp-Id</strong>: <em>required (string)</em><p>Trusted App id should be provide in this header.</p><p><strong>Example</strong>:</p><pre>MASTER_TRUSTED_APP</pre></li></ul><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Example</strong>:</p><pre><code>{
+   "permissionSet":{
+     "id":"1ac477ef-0c85-43b4-8c06-ced794b9cabd",
+     "permissionSetName":"DCS_CREATE_DEVELOPER_COMPANY_PERMISSIONSET"
+   }
+ }
+</code></pre></div><div class="tab-pane" id="permissionsets__username__permissionsetassignments_post_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><h2>HTTP status code <a href="http://httpstatus.es/404" target="_blank">404</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Example</strong>:</p><pre><code>{
+  "errors": {
+    "error": {
+                "code": "ERR_CODE_USER_NOT_FOUND",
+                "message": "User Not found."
+    }
+  },                        
+  "errors": {
+    "error": {
+                "code": "ERR_CODE_PERMISSIONSET_NOT_FOUND",
+                "message": "Permissionset Not found."
+             }
+    }
+}
+</code></pre></div></div></div></div></div></div></div></div></div></div><div class="panel panel-default"><div class="panel-heading"><h3 id="informationreleases" class="panel-title">/informationreleases</h3></div><div class="panel-body"><div class="panel-group"><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_informationreleases"><span class="parent"></span>/informationreleases</a> <span class="methods"><a href="#informationreleases_post"><span class="badge badge_post">post</span></a></span></h4></div><div id="panel_informationreleases" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#informationreleases_post'" class="list-group-item"><span class="badge badge_post">post</span><div class="method_description"><p>To create a release information for a enrollment.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="informationreleases_post"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_post">post</span> <span class="parent"></span>/informationreleases</h4></div><div class="modal-body"><div class="alert alert-info"><p>To create a release information for a enrollment.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#informationreleases_post_request" data-toggle="tab">Request</a></li><li><a href="#informationreleases_post_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="informationreleases_post_request"><h3>Headers</h3><ul><li><strong>Authorization</strong>: <em>required (string)</em><p>Authorization request header should specify as HMISUserAuth session_token={sessiontokenvalue}.</p><p><strong>Example</strong>:</p><pre>HMISUserAuth session_token=956048930B39448A8B6ABEDF57BECFFC07E2628546F847149BD42D4BC3CFDC39</pre></li><li><strong>X-HMIS-TrustedApp-Id</strong>: <em>required (string)</em><p>Trusted App id should be provide in this header.</p><p><strong>Example</strong>:</p><pre>MASTER_TRUSTED_APP</pre></li></ul><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Example</strong>:</p><pre><code>{
+  "roleaseOfInfo":{
+    "roleaseOfInfo":"2192f57b-fa89-41b4-8680-e78f0b3c4c5e",
+    "enrollmentId":"2192f57b-fa89-41b4-8680-e78f0b3c4c3e",
+    "consented":"true",
+    "projects":[
+      "2a54536b-f208-41d7-a2e3-     f7f1c0953c1a",
+      "3b6c1791-3d69-  4abc-8716-0cecf831357d"
+    ]
+  }
+}
+</code></pre></div><div class="tab-pane" id="informationreleases_post_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Example</strong>:</p><pre><code>{
+  "releaseOfInfos":{
+    "roleaseOfInfo":[
+      {
+        "roleaseOfInfoId":"2192f57b-fa89-41b4-8680-e78f0b3c4c5e",
+        "enrollmentId":"2192f57b-fa89-41b4-8680-e78f0b3c4c3e",
+        "consented":"true",
+        "project":"2a54536b-f208-41d7-a2e3-f7f1c0953c1a"
+      },
+      {
+        "roleaseOfInfo":"2192f57b-fa89-41b4-8680-e78f0b3c9g5e",
+        "enrollmentId":"2192f57b-fa89-41b4-8680-e78f0b3c4c3e",
+        "consented":"true",
+        "project":"2a54536b-f208-41d7-a2e3-f7f1c0953c1a"
+      }
+    ]
+  }
+}  
+</code></pre><h2>HTTP status code <a href="http://httpstatus.es/404" target="_blank">404</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Example</strong>:</p><pre><code>{
+  "errors": {
+    "error": {
+                "code": "ERR_CODE_ENROLLMENT_NOT_FOUND",
+                "message": "Enrollment Not found."
+    }
+    
+  },
+  "errors": {
+    "error": {
+                "code": "ERR_CODE_PROJECT_NOT_FOUND",
+                "message": "Project Not found."
+    }
+  }
+}
+</code></pre></div></div></div></div></div></div></div></div></div></div><div class="panel panel-default"><div class="panel-heading"><h3 id="informationreleases__enrollmentId_" class="panel-title">/informationreleases/{enrollmentId}</h3></div><div class="panel-body"><div class="panel-group"><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_informationreleases__enrollmentId_"><span class="parent"></span>/informationreleases/{enrollmentId}</a> <span class="methods"><a href="#informationreleases__enrollmentId__put"><span class="badge badge_put">put</span></a> <a href="#informationreleases__enrollmentId__delete"><span class="badge badge_delete">delete</span></a> <a href="#informationreleases__enrollmentId__get"><span class="badge badge_get">get</span></a></span></h4></div><div id="panel_informationreleases__enrollmentId_" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#informationreleases__enrollmentId__put'" class="list-group-item"><span class="badge badge_put">put</span><div class="method_description"><p>To update an enrollment&#39;s release of information.</p></div><div class="clearfix"></div></div><div onclick="window.location.href = '#informationreleases__enrollmentId__delete'" class="list-group-item"><span class="badge badge_delete">delete</span><div class="method_description"><p>To delete an enrollment&#39;s release of information.</p></div><div class="clearfix"></div></div><div onclick="window.location.href = '#informationreleases__enrollmentId__get'" class="list-group-item"><span class="badge badge_get">get</span><div class="method_description"><p>To get an enrollment&#39;s release of information.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="informationreleases__enrollmentId__put"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_put">put</span> <span class="parent"></span>/informationreleases/{enrollmentId}</h4></div><div class="modal-body"><div class="alert alert-info"><p>To update an enrollment&#39;s release of information.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#informationreleases__enrollmentId__put_request" data-toggle="tab">Request</a></li><li><a href="#informationreleases__enrollmentId__put_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="informationreleases__enrollmentId__put_request"><h3>URI Parameters</h3><ul><li><strong>enrollmentId</strong>: <em>required (string)</em></li></ul><h3>Headers</h3><ul><li><strong>Authorization</strong>: <em>required (string)</em><p>Authorization request header should specify as HMISUserAuth session_token={sessiontokenvalue}.</p><p><strong>Example</strong>:</p><pre>HMISUserAuth session_token=956048930B39448A8B6ABEDF57BECFFC07E2628546F847149BD42D4BC3CFDC39</pre></li><li><strong>X-HMIS-TrustedApp-Id</strong>: <em>required (string)</em><p>Trusted App id should be provide in this header.</p><p><strong>Example</strong>:</p><pre>MASTER_TRUSTED_APP</pre></li></ul><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Example</strong>:</p><pre><code>{
+  "roleaseOfInfo":{
+   "enrollmentId":"2192f57b-fa89-41b4-8680-e78f0b3c4c3e",
+    "consented":"true",
+    "projects":[
+      "2a54536b-f208-41d7-a2e3-     f7f1c0953c1a",
+      "3b6c1791-3d69-  4abc-8716-0cecf831357d"
+    ]
+  }
+}
+</code></pre></div><div class="tab-pane" id="informationreleases__enrollmentId__put_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Example</strong>:</p><pre><code>{
+  "releaseOfInfos":{
+    "roleaseOfInfo":[
+      {
+        "roleaseOfInfoId":"2192f57b-fa89-41b4-8680-e78f0b3c4c5e",
+        "enrollmentId":"2192f57b-fa89-41b4-8680-e78f0b3c4c3e",
+        "consented":"true",
+        "project":"2a54536b-f208-41d7-a2e3-f7f1c0953c1a"
+      },
+      {
+        "roleaseOfInfo":"2192f57b-fa89-41b4-8680-e78f0b3c9g5e",
+        "enrollmentId":"2192f57b-fa89-41b4-8680-e78f0b3c4c3e",
+        "consented":"true",
+        "project":"2a54536b-f208-41d7-a2e3-f7f1c0953c1a"
+      }
+    ]
+  }
+}
+</code></pre><h2>HTTP status code <a href="http://httpstatus.es/404" target="_blank">404</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Example</strong>:</p><pre><code>{
+  "errors": {
+    "error": {
+                "code": "ERR_CODE_ENROLLMENT_NOT_FOUND",
+                "message": "Enrollment Not found."
+    }
+  },
+  "errors": {
+    "error": {
+                "code": "ERR_CODE_PROJECT_NOT_FOUND",
+                "message": "Project Not found."
+    }
+  }
+}
+</code></pre></div></div></div></div></div></div><div class="modal fade" tabindex="0" id="informationreleases__enrollmentId__delete"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_delete">delete</span> <span class="parent"></span>/informationreleases/{enrollmentId}</h4></div><div class="modal-body"><div class="alert alert-info"><p>To delete an enrollment&#39;s release of information.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#informationreleases__enrollmentId__delete_request" data-toggle="tab">Request</a></li><li><a href="#informationreleases__enrollmentId__delete_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="informationreleases__enrollmentId__delete_request"><h3>URI Parameters</h3><ul><li><strong>enrollmentId</strong>: <em>required (string)</em></li></ul><h3>Headers</h3><ul><li><strong>Authorization</strong>: <em>required (string)</em><p>Authorization request header should specify as HMISUserAuth session_token={sessiontokenvalue}.</p><p><strong>Example</strong>:</p><pre>HMISUserAuth session_token=956048930B39448A8B6ABEDF57BECFFC07E2628546F847149BD42D4BC3CFDC39</pre></li><li><strong>X-HMIS-TrustedApp-Id</strong>: <em>required (string)</em><p>Trusted App id should be provide in this header.</p><p><strong>Example</strong>:</p><pre>MASTER_TRUSTED_APP</pre></li></ul><h3>Body</h3><p><strong>Type: application/json</strong></p></div><div class="tab-pane" id="informationreleases__enrollmentId__delete_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Example</strong>:</p><pre><code>{ "roleaseOfInfo" : { }   }
+</code></pre><h2>HTTP status code <a href="http://httpstatus.es/404" target="_blank">404</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Example</strong>:</p><pre><code>{
+  "errors": {
+    "error": {
+                "code": "ERR_CODE_ENROLLMENT_NOT_FOUND",
+                "message": "Enrollment Not found."
+             }
+    }
+}
+</code></pre></div></div></div></div></div></div><div class="modal fade" tabindex="0" id="informationreleases__enrollmentId__get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get</span> <span class="parent"></span>/informationreleases/{enrollmentId}</h4></div><div class="modal-body"><div class="alert alert-info"><p>To get an enrollment&#39;s release of information.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#informationreleases__enrollmentId__get_request" data-toggle="tab">Request</a></li><li><a href="#informationreleases__enrollmentId__get_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="informationreleases__enrollmentId__get_request"><h3>URI Parameters</h3><ul><li><strong>enrollmentId</strong>: <em>required (string)</em></li></ul><h3>Headers</h3><ul><li><strong>Authorization</strong>: <em>required (string)</em><p>Authorization request header should specify as HMISUserAuth session_token={sessiontokenvalue}.</p><p><strong>Example</strong>:</p><pre>HMISUserAuth session_token=956048930B39448A8B6ABEDF57BECFFC07E2628546F847149BD42D4BC3CFDC39</pre></li><li><strong>X-HMIS-TrustedApp-Id</strong>: <em>required (string)</em><p>Trusted App id should be provide in this header.</p><p><strong>Example</strong>:</p><pre>MASTER_TRUSTED_APP</pre></li></ul><h3>Query Parameters</h3><ul><li><strong>startIndex</strong>: <em>(string - default: 0)</em></li><li><strong>maxItems</strong>: <em>(string - default: 30)</em></li></ul><h3>Body</h3><p><strong>Type: application/json</strong></p></div><div class="tab-pane" id="informationreleases__enrollmentId__get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Example</strong>:</p><pre><code>{
+  "releaseOfInfos":{
+          "pagination": {
+                    "from": 0,
+                    "returned": 2,
+                    "total": 2,
+                    "maximum": 30,
+                    "sort": {}
+              },
+    "roleaseOfInfo":[
+      {
+        "roleaseOfInfoId":"2192f57b-fa89-41b4-8680-e78f0b3c4c5e",
+        "enrollmentId":"2192f57b-fa89-41b4-8680-e78f0b3c4c3e",
+        "consented":"true",
+        "project":"2a54536b-f208-41d7-a2e3-f7f1c0953c1a"
+      },
+      {
+        "roleaseOfInfo":"2192f57b-fa89-41b4-8680-e78f0b3c9g5e",
+        "enrollmentId":"2192f57b-fa89-41b4-8680-e78f0b3c4c3e",
+        "consented":"true",
+        "project":"2a54536b-f208-41d7-a2e3-f7f1c0953c1a"
+      }
+    ]
+  }
+}
+</code></pre><h2>HTTP status code <a href="http://httpstatus.es/404" target="_blank">404</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Example</strong>:</p><pre><code>{
+  "errors": {
+    "error": {
+                "code": "ERR_CODE_ENROLLMENT_NOT_FOUND",
+                "message": "Enrollment Not found."
+             }
+    }
+}  
+</code></pre></div></div></div></div></div></div></div></div></div></div><div class="panel panel-default"><div class="panel-heading"><h3 id="projectsgroups" class="panel-title">/projectsgroups</h3></div><div class="panel-body"><div class="panel-group"><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_projectsgroups"><span class="parent"></span>/projectsgroups</a> <span class="methods"><a href="#projectsgroups_post"><span class="badge badge_post">post</span></a> <a href="#projectsgroups_get"><span class="badge badge_get">get</span></a></span></h4></div><div id="panel_projectsgroups" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#projectsgroups_post'" class="list-group-item"><span class="badge badge_post">post</span><div class="method_description"><p>To create a new project group.</p></div><div class="clearfix"></div></div><div onclick="window.location.href = '#projectsgroups_get'" class="list-group-item"><span class="badge badge_get">get</span><div class="method_description"><p>To retrive existing project groups.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="projectsgroups_post"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_post">post</span> <span class="parent"></span>/projectsgroups</h4></div><div class="modal-body"><div class="alert alert-info"><p>To create a new project group.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#projectsgroups_post_request" data-toggle="tab">Request</a></li><li><a href="#projectsgroups_post_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="projectsgroups_post_request"><h3>Headers</h3><ul><li><strong>Authorization</strong>: <em>required (string)</em><p>Authorization request header should specify as HMISUserAuth session_token={sessiontokenvalue}.</p><p><strong>Example</strong>:</p><pre>HMISUserAuth session_token=956048930B39448A8B6ABEDF57BECFFC07E2628546F847149BD42D4BC3CFDC39</pre></li><li><strong>X-HMIS-TrustedApp-Id</strong>: <em>required (string)</em><p>Trusted App id should be provide in this header.</p><p><strong>Example</strong>:</p><pre>MASTER_TRUSTED_APP</pre></li></ul><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Example</strong>:</p><pre><code>{
+   "projectGroup":{
+      "projectGroupName":"Test",
+      "projectGroupDesc":"Test",
+      "projectGroupCode":"Test",
+      "skipuseridentifers":false,
+      "projects":[
+          {
+            "projectId":"306be3d2-cf56-4a72-aede-180cc89417ae",
+            "projectName":"ProjectName_1459515376900",
+            "projectCommonName":"ProjectCommonName_1459515376900",
+            "continuumProject":0,
+            "trackingMethod":0
+         }
+      ]
+   }
+}
+</code></pre></div><div class="tab-pane" id="projectsgroups_post_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Example</strong>:</p><pre><code>{
+     "projectGroup":{
+        "projectGroupId":"f6dc751c-c2f7-42e3-ab85-9b0e6c5cd8b0",
+        "projectGroupName":"Test",
+        "projectGroupDesc":"Test",
+        "projectGroupCode":"Test",
+        "skipuseridentifers":false,
+        "projects":[
+            {
+              "projectId":"306be3d2-cf56-4a72-aede-180cc89417ae",
+              "projectName":"ProjectName_1459515376900",
+              "projectCommonName":"ProjectCommonName_1459515376900",
+              "continuumProject":0,
+              "trackingMethod":0
+           }
+        ]
+     }
+  }
+</code></pre></div></div></div></div></div></div><div class="modal fade" tabindex="0" id="projectsgroups_get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get</span> <span class="parent"></span>/projectsgroups</h4></div><div class="modal-body"><div class="alert alert-info"><p>To retrive existing project groups.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#projectsgroups_get_request" data-toggle="tab">Request</a></li><li><a href="#projectsgroups_get_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="projectsgroups_get_request"><h3>Headers</h3><ul><li><strong>Authorization</strong>: <em>required (string)</em><p>Authorization request header should specify as HMISUserAuth session_token={sessiontokenvalue}.</p><p><strong>Example</strong>:</p><pre>HMISUserAuth session_token=956048930B39448A8B6ABEDF57BECFFC07E2628546F847149BD42D4BC3CFDC39</pre></li><li><strong>X-HMIS-TrustedApp-Id</strong>: <em>required (string)</em><p>Trusted App id should be provide in this header.</p><p><strong>Example</strong>:</p><pre>MASTER_TRUSTED_APP</pre></li></ul><h3>Query Parameters</h3><ul><li><strong>startIndex</strong>: <em>(string - default: 0)</em></li><li><strong>maxItems</strong>: <em>(string - default: 30)</em></li></ul></div><div class="tab-pane" id="projectsgroups_get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Example</strong>:</p><pre><code>{
+   "projectgroups":{
+      "pagination":{
+         "from":0,
+         "returned":2,
+         "total":2,
+         "maximum":30,
+         "sort":{
+
+         }
+      },
+      "projectGroups":[
+
+         {
+            "projectGroupName":"CK Project",
+            "projectGroupDesc":"Test CK Project",
+            "projectGroupId":"34926f5a-3bc6-42af-ba30-9f0a9746316d",
+            "projectGroupCode":"CP0004",
+            "skipuseridentifers":false,
+            "projects":[
+
+            ]
+         },
+         {
+            "projectGroupName":"TestGrp",
+            "projectGroupDesc":"Test Project Group",
+            "projectGroupId":"aaae7c3a-84df-4ff1-a35c-97b39341e66a",
+            "projectGroupCode":"TE0003",
+            "skipuseridentifers":false,
+            "projects":[
+               {
+                  "projectId":"306be3d2-cf56-4a72-aede-180cc89417ae",
+                  "projectName":"ProjectName_1459515376900",
+                  "projectCommonName":"ProjectCommonName_1459515376900",
+                  "continuumProject":0,
+                  "trackingMethod":0,
+                  "link":"/hmis-clientapi/rest/v2014/projects/306be3d2-cf56-4a72-aede-180cc89417ae"
+               }
+            ]
+         }
+      ]
+   }
+}
+</code></pre></div></div></div></div></div></div></div></div></div></div><div class="panel panel-default"><div class="panel-heading"><h3 id="projectgroups__projectgroupid_" class="panel-title">/projectgroups/{projectgroupid}</h3></div><div class="panel-body"><div class="panel-group"><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_projectgroups__projectgroupid_"><span class="parent"></span>/projectgroups/{projectgroupid}</a> <span class="methods"><a href="#projectgroups__projectgroupid__put"><span class="badge badge_put">put</span></a> <a href="#projectgroups__projectgroupid__delete"><span class="badge badge_delete">delete</span></a> <a href="#projectgroups__projectgroupid__get"><span class="badge badge_get">get</span></a></span></h4></div><div id="panel_projectgroups__projectgroupid_" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#projectgroups__projectgroupid__put'" class="list-group-item"><span class="badge badge_put">put</span><div class="method_description"><p>To update existing project group. While updating project group, api will remove all the assigned projects and add projects which are in new request body.</p></div><div class="clearfix"></div></div><div onclick="window.location.href = '#projectgroups__projectgroupid__delete'" class="list-group-item"><span class="badge badge_delete">delete</span><div class="method_description"><p>To remove existing project group.</p></div><div class="clearfix"></div></div><div onclick="window.location.href = '#projectgroups__projectgroupid__get'" class="list-group-item"><span class="badge badge_get">get</span><div class="method_description"><p>To retrive selected project group.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="projectgroups__projectgroupid__put"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_put">put</span> <span class="parent"></span>/projectgroups/{projectgroupid}</h4></div><div class="modal-body"><div class="alert alert-info"><p>To update existing project group. While updating project group, api will remove all the assigned projects and add projects which are in new request body.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#projectgroups__projectgroupid__put_request" data-toggle="tab">Request</a></li><li><a href="#projectgroups__projectgroupid__put_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="projectgroups__projectgroupid__put_request"><h3>URI Parameters</h3><ul><li><strong>projectgroupid</strong>: <em>required (string)</em></li></ul><h3>Headers</h3><ul><li><strong>Authorization</strong>: <em>required (string)</em><p>Authorization request header should specify as HMISUserAuth session_token={sessiontokenvalue}.</p><p><strong>Example</strong>:</p><pre>HMISUserAuth session_token=956048930B39448A8B6ABEDF57BECFFC07E2628546F847149BD42D4BC3CFDC39</pre></li><li><strong>X-HMIS-TrustedApp-Id</strong>: <em>required (string)</em><p>Trusted App id should be provide in this header.</p><p><strong>Example</strong>:</p><pre>MASTER_TRUSTED_APP</pre></li></ul><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Example</strong>:</p><pre><code>{
+   "projectGroup":{
+      "projectGroupName":"Test",
+      "projectGroupDesc":"Test",
+      "projectGroupCode":"Test",
+      "skipuseridentifers":false,
+      "projects":[
+          {
+            "projectId":"306be3d2-cf56-4a72-aede-180cc89417ae",
+            "projectName":"ProjectName_1459515376900",
+            "projectCommonName":"ProjectCommonName_1459515376900",
+            "continuumProject":0,
+            "trackingMethod":0
+         }
+      ]
+   }
+}
+</code></pre></div><div class="tab-pane" id="projectgroups__projectgroupid__put_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Example</strong>:</p><pre><code>{
+     "projectGroup":{
+        "projectGroupId":"f6dc751c-c2f7-42e3-ab85-9b0e6c5cd8b0",
+        "projectGroupName":"Test",
+        "projectGroupDesc":"Test",
+        "projectGroupCode":"Test",
+        "skipuseridentifers":false,
+        "projects":[
+            {
+              "projectId":"306be3d2-cf56-4a72-aede-180cc89417ae",
+              "projectName":"ProjectName_1459515376900",
+              "projectCommonName":"ProjectCommonName_1459515376900",
+              "continuumProject":0,
+              "trackingMethod":0
+           }
+        ]
+     }
+  }
+</code></pre><h2>HTTP status code <a href="http://httpstatus.es/404" target="_blank">404</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Example</strong>:</p><pre><code>{
+ "errors": {
+   "error": {
+               "code": "ERR_CODE_PROJECT_GROUP_NOT_FOUND",
+               "message": "Project Group Not found."
+            }
+     }
+ }  
+</code></pre></div></div></div></div></div></div><div class="modal fade" tabindex="0" id="projectgroups__projectgroupid__delete"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_delete">delete</span> <span class="parent"></span>/projectgroups/{projectgroupid}</h4></div><div class="modal-body"><div class="alert alert-info"><p>To remove existing project group.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#projectgroups__projectgroupid__delete_request" data-toggle="tab">Request</a></li><li><a href="#projectgroups__projectgroupid__delete_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="projectgroups__projectgroupid__delete_request"><h3>URI Parameters</h3><ul><li><strong>projectgroupid</strong>: <em>required (string)</em></li></ul><h3>Headers</h3><ul><li><strong>Authorization</strong>: <em>required (string)</em><p>Authorization request header should specify as HMISUserAuth session_token={sessiontokenvalue}.</p><p><strong>Example</strong>:</p><pre>HMISUserAuth session_token=956048930B39448A8B6ABEDF57BECFFC07E2628546F847149BD42D4BC3CFDC39</pre></li><li><strong>X-HMIS-TrustedApp-Id</strong>: <em>required (string)</em><p>Trusted App id should be provide in this header.</p><p><strong>Example</strong>:</p><pre>MASTER_TRUSTED_APP</pre></li></ul></div><div class="tab-pane" id="projectgroups__projectgroupid__delete_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Example</strong>:</p><pre><code>{ "projectGroup": { } }
+</code></pre><h2>HTTP status code <a href="http://httpstatus.es/404" target="_blank">404</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Example</strong>:</p><pre><code>{
+ "errors": {
+   "error": {
+               "code": "ERR_CODE_PROJECT_GROUP_NOT_FOUND",
+               "message": "Project Group Not found."
+            }
+     }
+ }  
+</code></pre></div></div></div></div></div></div><div class="modal fade" tabindex="0" id="projectgroups__projectgroupid__get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get</span> <span class="parent"></span>/projectgroups/{projectgroupid}</h4></div><div class="modal-body"><div class="alert alert-info"><p>To retrive selected project group.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#projectgroups__projectgroupid__get_request" data-toggle="tab">Request</a></li><li><a href="#projectgroups__projectgroupid__get_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="projectgroups__projectgroupid__get_request"><h3>URI Parameters</h3><ul><li><strong>projectgroupid</strong>: <em>required (string)</em></li></ul><h3>Headers</h3><ul><li><strong>Authorization</strong>: <em>required (string)</em><p>Authorization request header should specify as HMISUserAuth session_token={sessiontokenvalue}.</p><p><strong>Example</strong>:</p><pre>HMISUserAuth session_token=956048930B39448A8B6ABEDF57BECFFC07E2628546F847149BD42D4BC3CFDC39</pre></li><li><strong>X-HMIS-TrustedApp-Id</strong>: <em>required (string)</em><p>Trusted App id should be provide in this header.</p><p><strong>Example</strong>:</p><pre>MASTER_TRUSTED_APP</pre></li></ul></div><div class="tab-pane" id="projectgroups__projectgroupid__get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Example</strong>:</p><pre><code>{
+   "projectGroupName":"TestGrp",
+   "projectGroupDesc":"Test Project Group",
+   "projectGroupId":"aaae7c3a-84df-4ff1-a35c-97b39341e66a",
+   "projectGroupCode":"TE0003",
+   "skipuseridentifers":false,
+   "projects":[
+      {
+         "projectId":"306be3d2-cf56-4a72-aede-180cc89417ae",
+         "projectName":"ProjectName_1459515376900",
+         "projectCommonName":"ProjectCommonName_1459515376900",
+         "continuumProject":0,
+         "trackingMethod":0,
+         "link":"/hmis-clientapi/rest/v2014/projects/306be3d2-cf56-4a72-aede-180cc89417ae"
+      }
+   ]
+}
+</code></pre><h2>HTTP status code <a href="http://httpstatus.es/404" target="_blank">404</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Example</strong>:</p><pre><code>{
+ "errors": {
+   "error": {
+               "code": "ERR_CODE_PROJECT_GROUP_NOT_FOUND",
+               "message": "Project Group Not found."
+            }
+     }
+ }  
+</code></pre></div></div></div></div></div></div></div></div></div></div></div><div class="col-md-3"><div id="sidebar" class="hidden-print affix" role="complementary"><ul class="nav nav-pills nav-stacked"><li><a href="#accounts">All accounts</a></li><li><a href="#accounts__accountid_">/accounts/{accountid}</a></li><li><a href="#accounts__accountid__activate">/accounts/{accountid}/activate</a></li><li><a href="#accounts__accountid__basicinfo">A specific account</a></li><li><a href="#accounts__accountid__passwordchanges">Change password for an account</a></li><li><a href="#accounts__accountid__forgotpassword">Change password for an account</a></li><li><a href="#accounts__accountid__roles">/accounts/{accountid}/roles</a></li><li><a href="#accounts__accountid__roles__roleid_">/accounts/{accountid}/roles/{roleid}</a></li><li><a href="#profiles">/profiles</a></li><li><a href="#profiles__profileId_">/profiles/{profileId}</a></li><li><a href="#sharingrules">/sharingrules</a></li><li><a href="#sharingrules__sharingruleid_">/sharingrules/{sharingruleid}</a></li><li><a href="#roles">/roles</a></li><li><a href="#roles__roleid_">/roles/{roleid}</a></li><li><a href="#permissionsets">/permissionsets</a></li><li><a href="#permissionsets__permissionsetid_">/permissionsets/{permissionsetid}</a></li><li><a href="#permissionsets__username__permissionsetassignments">/permissionsets/{username}/permissionsetassignments</a></li><li><a href="#informationreleases">/informationreleases</a></li><li><a href="#informationreleases__enrollmentId_">/informationreleases/{enrollmentId}</a></li><li><a href="#projectsgroups">/projectsgroups</a></li><li><a href="#projectgroups__projectgroupid_">/projectgroups/{projectgroupid}</a></li></ul></div></div></div></div></body></html>
