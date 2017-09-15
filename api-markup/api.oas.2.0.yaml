@@ -3,6 +3,7 @@ swagger: "2.0"
 info:
   version: "1.0.0"
   title: "Hmis User Service"
+  description: "test description I'm trying"
 host: "www.hmislynk.com"
 basePath: "/hmis-user-service/rest"
 schemes:

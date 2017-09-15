@@ -2,7 +2,9 @@
   "swagger" : "2.0",
   "info" : {
     "version" : "1.0.0",
-    "title" : "Hmis User Service"
+    "title" : "Hmis User Service",
+    "description" : "test description"
+
   },
   "host" : "www.hmislynk.com",
   "basePath" : "/hmis-user-service/rest",
