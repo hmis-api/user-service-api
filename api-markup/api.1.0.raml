@@ -1,0 +1,881 @@
+#%RAML 1.0
+title: "Hmis User Service"
+version: "1.0.0"
+protocols:
+- "HTTPS"
+baseUri: "https://www.hmislynk.com/hmis-user-service/rest"
+/accounts:
+  displayName: "All accounts"
+  post:
+    description: "It creates an account with the specified username and sends out\
+      \ an email to the user to verify the account creation. The initial status of\
+      \ the newly created account is PENDING. The status is changed to ACTIVE when\
+      \ the user verifies account creation by clicking the link embedded in the email.\
+      \ Only an ACTIVE account can log-in using the Create a session (Log-in) API.\
+      \ <br> It returns an error if an account with the specified username already\
+      \ exists.\nThis endpoint does the following:\n1) If request does not contain\
+      \ profile information, standard profile will be assigned to the user.\n2) If\
+      \ request does not contain role information, default role will be assigned based\
+      \ on profile.    \n3) Project Group of the user will be same as the project\
+      \ group of logged-in user who creates the account.\nThe user must have \"USR_CREATE_ACCOUNT\"\
+      \ permission to use this API    \n"
+    headers:
+      Authorization:
+        type: "string"
+        description: "Authorization request header should specify as HMISUserAuth\
+          \ session_token={sessiontokenvalue}."
+        example: "HMISUserAuth session_token=956048930B39448A8B6ABEDF57BECFFC07E2628546F847149BD42D4BC3CFDC39"
+      X-HMIS-TrustedApp-Id:
+        type: "string"
+        description: "Trusted App id should be provide in this header."
+        example: "MASTER_TRUSTED_APP"
+    responses:
+      200:
+        body:
+          application/json:
+            type: "object"
+      409:
+        description: "An account with the specified username already exists."
+        body:
+          application/json:
+            type: "object"
+  get:
+    description: "To get all the users under logged in your project group."
+    queryParameters:
+      startIndex:
+        type: "string"
+        default: "0"
+        required: false
+      maxItems:
+        type: "string"
+        default: "30"
+        required: false
+    headers:
+      Authorization:
+        type: "string"
+        description: "Authorization request header should specify as HMISUserAuth\
+          \ session_token={sessiontokenvalue}."
+        example: "HMISUserAuth session_token=956048930B39448A8B6ABEDF57BECFFC07E2628546F847149BD42D4BC3CFDC39"
+      X-HMIS-TrustedApp-Id:
+        type: "string"
+        description: "Trusted App id should be provide in this header."
+        example: "MASTER_TRUSTED_APP"
+    responses:
+      200:
+        body:
+          application/json:
+            type: "object"
+/accounts/{accountid}:
+  uriParameters:
+    accountid:
+      type: "string"
+  put:
+    description: "To update a specific account information.\nProvide account id as\
+      \ path variable for upatading non loggedin user. If need to update logged in\
+      \ user send self as account id.\n"
+    responses:
+      200:
+        body:
+          application/json:
+            type: "object"
+  get:
+    description: "Gets (aka reads or retrieves) a specific account. <BR><br>\nGET\
+      \ /accounts/{username}\n<b>\n"
+    headers:
+      Authorization:
+        type: "string"
+        description: "Authorization request header should specify as HMISUserAuth\
+          \ session_token={sessiontokenvalue}."
+        example: "HMISUserAuth session_token=956048930B39448A8B6ABEDF57BECFFC07E2628546F847149BD42D4BC3CFDC39"
+      X-HMIS-TrustedApp-Id:
+        type: "string"
+        description: "Trusted App id should be provide in this header."
+        example: "MASTER_TRUSTED_APP"
+    responses:
+      200:
+        description: "Successfully retrieved resource(s)\n"
+        body:
+          application/json:
+            type: "object"
+      403:
+        body:
+          application/json:
+            type: "object"
+  delete:
+    description: "Account status will be updated to DELETED. \n"
+    headers:
+      Authorization:
+        type: "string"
+        description: "Authorization request header should specify as HMISUserAuth\
+          \ session_token={sessiontokenvalue}."
+        example: "HMISUserAuth session_token=956048930B39448A8B6ABEDF57BECFFC07E2628546F847149BD42D4BC3CFDC39"
+      X-HMIS-TrustedApp-Id:
+        type: "string"
+        description: "Trusted App id should be provide in this header."
+        example: "MASTER_TRUSTED_APP"
+/accounts/{accountid}/activate:
+  uriParameters:
+    accountid:
+      type: "string"
+  put:
+    description: "To reactivate a specified user account\n"
+    headers:
+      Authorization:
+        type: "string"
+        description: "Authorization request header should specify as HMISUserAuth\
+          \ session_token={sessiontokenvalue}."
+        example: "HMISUserAuth session_token=956048930B39448A8B6ABEDF57BECFFC07E2628546F847149BD42D4BC3CFDC39"
+      X-HMIS-TrustedApp-Id:
+        type: "string"
+        description: "Trusted App id should be provide in this header."
+        example: "MASTER_TRUSTED_APP"
+    responses:
+      200:
+        body:
+          application/json:
+            type: "object"
+      403:
+        body:
+          application/json:
+            type: "object"
+/accounts/{accountid}/basicinfo:
+  displayName: "A specific account"
+  uriParameters:
+    accountid:
+      type: "string"
+  get:
+    description: "Gets (aka reads or retrieves) a specific account. <BR><br>\nGET\
+      \ /accounts/{username}\n<b>\n"
+    headers:
+      Authorization:
+        type: "string"
+        description: "Authorization request header should specify as HMISUserAuth\
+          \ session_token={sessiontokenvalue}."
+        example: "HMISUserAuth session_token=956048930B39448A8B6ABEDF57BECFFC07E2628546F847149BD42D4BC3CFDC39"
+      X-HMIS-TrustedApp-Id:
+        type: "string"
+        description: "Trusted App id should be provide in this header."
+        example: "MASTER_TRUSTED_APP"
+    responses:
+      200:
+        description: "Successfully retrieved resource(s)\n"
+        body:
+          application/json:
+            type: "object"
+      403:
+        body:
+          application/json:
+            type: "object"
+/accounts/{accountid}/passwordchanges:
+  displayName: "Change password for an account"
+  uriParameters:
+    accountid:
+      type: "string"
+  put:
+    description: "Changes password for an account. To change the password, the user\
+      \ must be logged-in and provide his/her current password.\nThe {username} is\
+      \ a value that uniquely identifies an account.\nTo change the password of the\
+      \ currently logged-in user, the {username} can be replaced by <b>self</b> keyword\
+      \ in the URL as shown below.\n<b>POST</b> /accounts/self/passwordchanges\n"
+    headers:
+      Authorization:
+        type: "string"
+        description: "Authorization request header should specify as HMISUserAuth\
+          \ session_token={sessiontokenvalue}."
+        example: "HMISUserAuth session_token=956048930B39448A8B6ABEDF57BECFFC07E2628546F847149BD42D4BC3CFDC39"
+      X-HMIS-TrustedApp-Id:
+        type: "string"
+        description: "Trusted App id should be provide in this header."
+        example: "MASTER_TRUSTED_APP"
+    responses:
+      200:
+        description: ""
+        body:
+          application/json:
+            type: "object"
+      403:
+        body:
+          application/json:
+            type: "object"
+/accounts/{accountid}/forgotpassword:
+  displayName: "Change password for an account"
+  uriParameters:
+    accountid:
+      type: "string"
+  post:
+    description: "Resets password for an account. It sends out an email notification\
+      \ to the user to verify the password reset. The new password becomes effective\
+      \ only after it has been verified by the user. It returns an error if an account\
+      \ with the specified username does not exist OR the account has been DISABLED.\n\
+      </br> The {username} is a value that uniquely identifies an account.\n"
+    headers:
+      Authorization:
+        type: "string"
+        description: "Authorization request header should specify as HMISUserAuth\
+          \ session_token={sessiontokenvalue}."
+        example: "HMISUserAuth session_token=956048930B39448A8B6ABEDF57BECFFC07E2628546F847149BD42D4BC3CFDC39"
+      X-HMIS-TrustedApp-Id:
+        type: "string"
+        description: "Trusted App id should be provide in this header."
+        example: "MASTER_TRUSTED_APP"
+    responses:
+      200:
+        description: ""
+        body:
+          application/json:
+            type: "object"
+      403:
+        body:
+          application/json:
+            type: "object"
+      404:
+        body:
+          application/json:
+            type: "object"
+/accounts/{accountid}/roles:
+  uriParameters:
+    accountid:
+      type: "string"
+  put:
+    description: "To assigne a role to user. If the role is already assigned nothing\
+      \ will happen."
+    headers:
+      Authorization:
+        type: "string"
+        description: "Authorization request header should specify as HMISUserAuth\
+          \ session_token={sessiontokenvalue}."
+        example: "HMISUserAuth session_token=956048930B39448A8B6ABEDF57BECFFC07E2628546F847149BD42D4BC3CFDC39"
+      X-HMIS-TrustedApp-Id:
+        type: "string"
+        description: "Trusted App id should be provide in this header."
+        example: "MASTER_TRUSTED_APP"
+    responses:
+      200:
+        body:
+          application/json:
+            type: "object"
+      404:
+        body:
+          application/json:
+            type: "object"
+/accounts/{accountid}/roles/{roleid}:
+  uriParameters:
+    accountid:
+      type: "string"
+    roleid:
+      type: "string"
+  delete:
+    description: "To remove role from the user."
+    headers:
+      Authorization:
+        type: "string"
+        description: "Authorization request header should specify as HMISUserAuth\
+          \ session_token={sessiontokenvalue}."
+        example: "HMISUserAuth session_token=956048930B39448A8B6ABEDF57BECFFC07E2628546F847149BD42D4BC3CFDC39"
+      X-HMIS-TrustedApp-Id:
+        type: "string"
+        description: "Trusted App id should be provide in this header."
+        example: "MASTER_TRUSTED_APP"
+    responses:
+      200:
+        body:
+          application/json:
+            type: "object"
+      403:
+        body:
+          application/json:
+            type: "object"
+      404:
+        body:
+          application/json:
+            type: "object"
+/profiles:
+  get:
+    description: "To get all Profiles"
+    queryParameters:
+      startIndex:
+        type: "string"
+        default: "0"
+        required: false
+      maxItems:
+        type: "string"
+        default: "30"
+        required: false
+    headers:
+      Authorization:
+        type: "string"
+        description: "Authorization request header should specify as HMISUserAuth\
+          \ session_token={sessiontokenvalue}."
+        example: "HMISUserAuth session_token=956048930B39448A8B6ABEDF57BECFFC07E2628546F847149BD42D4BC3CFDC39"
+      X-HMIS-TrustedApp-Id:
+        type: "string"
+        description: "Trusted App id should be provide in this header."
+        example: "MASTER_TRUSTED_APP"
+    responses:
+      200:
+        body:
+          application/json:
+            type: "object"
+  post:
+    description: "TO creat new Profile"
+    headers:
+      Authorization:
+        type: "string"
+        description: "Authorization request header should specify as HMISUserAuth\
+          \ session_token={sessiontokenvalue}."
+        example: "HMISUserAuth session_token=956048930B39448A8B6ABEDF57BECFFC07E2628546F847149BD42D4BC3CFDC39"
+      X-HMIS-TrustedApp-Id:
+        type: "string"
+        description: "Trusted App id should be provide in this header."
+        example: "MASTER_TRUSTED_APP"
+    responses:
+      200:
+        body:
+          application/json:
+            type: "object"
+/profiles/{profileId}:
+  uriParameters:
+    profileId:
+      type: "string"
+  put:
+    description: "To Update A specific Profile."
+    headers:
+      Authorization:
+        type: "string"
+        description: "Authorization request header should specify as HMISUserAuth\
+          \ session_token={sessiontokenvalue}."
+        example: "HMISUserAuth session_token=956048930B39448A8B6ABEDF57BECFFC07E2628546F847149BD42D4BC3CFDC39"
+      X-HMIS-TrustedApp-Id:
+        type: "string"
+        description: "Trusted App id should be provide in this header."
+        example: "MASTER_TRUSTED_APP"
+    responses:
+      200:
+        body:
+          application/json:
+            type: "object"
+      404:
+        body:
+          application/json:
+            type: "object"
+  delete:
+    description: "To Delete A specific Profile\n"
+    headers:
+      Authorization:
+        type: "string"
+        description: "Authorization request header should specify as HMISUserAuth\
+          \ session_token={sessiontokenvalue}."
+        example: "HMISUserAuth session_token=956048930B39448A8B6ABEDF57BECFFC07E2628546F847149BD42D4BC3CFDC39"
+      X-HMIS-TrustedApp-Id:
+        type: "string"
+        description: "Trusted App id should be provide in this header."
+        example: "MASTER_TRUSTED_APP"
+    responses:
+      200:
+        body:
+          application/json:
+            type: "object"
+      404:
+        body:
+          application/json:
+            type: "object"
+  get:
+    description: "To get a Specific Profile Details"
+    headers:
+      Authorization:
+        type: "string"
+        description: "Authorization request header should specify as HMISUserAuth\
+          \ session_token={sessiontokenvalue}."
+        example: "HMISUserAuth session_token=956048930B39448A8B6ABEDF57BECFFC07E2628546F847149BD42D4BC3CFDC39"
+      X-HMIS-TrustedApp-Id:
+        type: "string"
+        description: "Trusted App id should be provide in this header."
+        example: "MASTER_TRUSTED_APP"
+    responses:
+      200:
+        body:
+          application/json:
+            type: "object"
+      404:
+        body:
+          application/json:
+            type: "object"
+/sharingrules:
+  post:
+    description: "To create a New sharing rule."
+    headers:
+      Authorization:
+        type: "string"
+        description: "Authorization request header should specify as HMISUserAuth\
+          \ session_token={sessiontokenvalue}."
+        example: "HMISUserAuth session_token=956048930B39448A8B6ABEDF57BECFFC07E2628546F847149BD42D4BC3CFDC39"
+      X-HMIS-TrustedApp-Id:
+        type: "string"
+        description: "Trusted App id should be provide in this header."
+        example: "MASTER_TRUSTED_APP"
+    responses:
+      200:
+        body:
+          application/json:
+            type: "object"
+      404:
+        body:
+          application/json:
+            type: "object"
+/sharingrules/{sharingruleid}:
+  uriParameters:
+    sharingruleid:
+      type: "string"
+  put:
+    description: "To update a specifc Sharing Rule"
+    headers:
+      Authorization:
+        type: "string"
+        description: "Authorization request header should specify as HMISUserAuth\
+          \ session_token={sessiontokenvalue}."
+        example: "HMISUserAuth session_token=956048930B39448A8B6ABEDF57BECFFC07E2628546F847149BD42D4BC3CFDC39"
+      X-HMIS-TrustedApp-Id:
+        type: "string"
+        description: "Trusted App id should be provide in this header."
+        example: "MASTER_TRUSTED_APP"
+    responses:
+      200:
+        body:
+          application/json:
+            type: "object"
+      404:
+        body:
+          application/json:
+            type: "object"
+  delete:
+    description: "To Delete A Specifc Sharing Rule"
+    headers:
+      Authorization:
+        type: "string"
+        description: "Authorization request header should specify as HMISUserAuth\
+          \ session_token={sessiontokenvalue}."
+        example: "HMISUserAuth session_token=956048930B39448A8B6ABEDF57BECFFC07E2628546F847149BD42D4BC3CFDC39"
+      X-HMIS-TrustedApp-Id:
+        type: "string"
+        description: "Trusted App id should be provide in this header."
+        example: "MASTER_TRUSTED_APP"
+    responses:
+      200:
+        body:
+          application/json:
+            type: "object"
+      404:
+        body:
+          application/json:
+            type: "object"
+/roles:
+  get:
+    description: "To get All the roles."
+    queryParameters:
+      startIndex:
+        type: "string"
+        default: "0"
+        required: false
+      maxItems:
+        type: "string"
+        default: "30"
+        required: false
+    headers:
+      Authorization:
+        type: "string"
+        description: "Authorization request header should specify as HMISUserAuth\
+          \ session_token={sessiontokenvalue}."
+        example: "HMISUserAuth session_token=956048930B39448A8B6ABEDF57BECFFC07E2628546F847149BD42D4BC3CFDC39"
+      X-HMIS-TrustedApp-Id:
+        type: "string"
+        description: "Trusted App id should be provide in this header."
+        example: "MASTER_TRUSTED_APP"
+    responses:
+      200:
+        body:
+          application/json:
+            type: "object"
+  post:
+    description: "To create A new role"
+    headers:
+      Authorization:
+        type: "string"
+        description: "Authorization request header should specify as HMISUserAuth\
+          \ session_token={sessiontokenvalue}."
+        example: "HMISUserAuth session_token=956048930B39448A8B6ABEDF57BECFFC07E2628546F847149BD42D4BC3CFDC39"
+      X-HMIS-TrustedApp-Id:
+        type: "string"
+        description: "Trusted App id should be provide in this header."
+        example: "MASTER_TRUSTED_APP"
+    responses:
+      200:
+        body:
+          application/json:
+            type: "object"
+/roles/{roleid}:
+  uriParameters:
+    roleid:
+      type: "string"
+  put:
+    description: "To update a specific role"
+    headers:
+      Authorization:
+        type: "string"
+        description: "Authorization request header should specify as HMISUserAuth\
+          \ session_token={sessiontokenvalue}."
+        example: "HMISUserAuth session_token=956048930B39448A8B6ABEDF57BECFFC07E2628546F847149BD42D4BC3CFDC39"
+      X-HMIS-TrustedApp-Id:
+        type: "string"
+        description: "Trusted App id should be provide in this header."
+        example: "MASTER_TRUSTED_APP"
+    responses:
+      200:
+        body:
+          application/json:
+            type: "object"
+      404:
+        body:
+          application/json:
+            type: "object"
+  delete:
+    description: "To delete a Specific role"
+    headers:
+      Authorization:
+        type: "string"
+        description: "Authorization request header should specify as HMISUserAuth\
+          \ session_token={sessiontokenvalue}."
+        example: "HMISUserAuth session_token=956048930B39448A8B6ABEDF57BECFFC07E2628546F847149BD42D4BC3CFDC39"
+      X-HMIS-TrustedApp-Id:
+        type: "string"
+        description: "Trusted App id should be provide in this header."
+        example: "MASTER_TRUSTED_APP"
+    responses:
+      200:
+        body:
+          application/json:
+            type: "object"
+      404:
+        body:
+          application/json:
+            type: "object"
+/permissionsets:
+  post:
+    description: "To create a new Permission Set."
+    headers:
+      Authorization:
+        type: "string"
+        description: "Authorization request header should specify as HMISUserAuth\
+          \ session_token={sessiontokenvalue}."
+        example: "HMISUserAuth session_token=956048930B39448A8B6ABEDF57BECFFC07E2628546F847149BD42D4BC3CFDC39"
+      X-HMIS-TrustedApp-Id:
+        type: "string"
+        description: "Trusted App id should be provide in this header."
+        example: "MASTER_TRUSTED_APP"
+    responses:
+      200:
+        body:
+          application/json:
+            type: "object"
+/permissionsets/{permissionsetid}:
+  uriParameters:
+    permissionsetid:
+      type: "string"
+  put:
+    description: "To update a Specific Permission Set"
+    headers:
+      Authorization:
+        type: "string"
+        description: "Authorization request header should specify as HMISUserAuth\
+          \ session_token={sessiontokenvalue}."
+        example: "HMISUserAuth session_token=956048930B39448A8B6ABEDF57BECFFC07E2628546F847149BD42D4BC3CFDC39"
+      X-HMIS-TrustedApp-Id:
+        type: "string"
+        description: "Trusted App id should be provide in this header."
+        example: "MASTER_TRUSTED_APP"
+    responses:
+      200:
+        body:
+          application/json:
+            type: "object"
+      404:
+        body:
+          application/json:
+            type: "object"
+  delete:
+    description: "To Delete a specific Permission Set"
+    headers:
+      Authorization:
+        type: "string"
+        description: "Authorization request header should specify as HMISUserAuth\
+          \ session_token={sessiontokenvalue}."
+        example: "HMISUserAuth session_token=956048930B39448A8B6ABEDF57BECFFC07E2628546F847149BD42D4BC3CFDC39"
+      X-HMIS-TrustedApp-Id:
+        type: "string"
+        description: "Trusted App id should be provide in this header."
+        example: "MASTER_TRUSTED_APP"
+    responses:
+      200:
+        body:
+          application/json:
+            type: "object"
+      404:
+        body:
+          application/json:
+            type: "object"
+  get:
+    description: "To get Details About a specific Permision Set"
+    headers:
+      Authorization:
+        type: "string"
+        description: "Authorization request header should specify as HMISUserAuth\
+          \ session_token={sessiontokenvalue}."
+        example: "HMISUserAuth session_token=956048930B39448A8B6ABEDF57BECFFC07E2628546F847149BD42D4BC3CFDC39"
+      X-HMIS-TrustedApp-Id:
+        type: "string"
+        description: "Trusted App id should be provide in this header."
+        example: "MASTER_TRUSTED_APP"
+    responses:
+      200:
+        body:
+          application/json:
+            type: "object"
+      404:
+        body:
+          application/json:
+            type: "object"
+/permissionsets/{username}/permissionsetassignments:
+  uriParameters:
+    username:
+      type: "string"
+  post:
+    description: "To Assign a Permission to A user\n <b>Note:</b> /permissionset/hmisuser/assignPermissionSet\n"
+    headers:
+      Authorization:
+        type: "string"
+        description: "Authorization request header should specify as HMISUserAuth\
+          \ session_token={sessiontokenvalue}."
+        example: "HMISUserAuth session_token=956048930B39448A8B6ABEDF57BECFFC07E2628546F847149BD42D4BC3CFDC39"
+      X-HMIS-TrustedApp-Id:
+        type: "string"
+        description: "Trusted App id should be provide in this header."
+        example: "MASTER_TRUSTED_APP"
+    responses:
+      200:
+        body:
+          application/json:
+            type: "object"
+      404:
+        body:
+          application/json:
+            type: "object"
+/informationreleases:
+  post:
+    description: "To create a release information for a enrollment."
+    headers:
+      Authorization:
+        type: "string"
+        description: "Authorization request header should specify as HMISUserAuth\
+          \ session_token={sessiontokenvalue}."
+        example: "HMISUserAuth session_token=956048930B39448A8B6ABEDF57BECFFC07E2628546F847149BD42D4BC3CFDC39"
+      X-HMIS-TrustedApp-Id:
+        type: "string"
+        description: "Trusted App id should be provide in this header."
+        example: "MASTER_TRUSTED_APP"
+    responses:
+      200:
+        body:
+          application/json:
+            type: "object"
+      404:
+        body:
+          application/json:
+            type: "object"
+/informationreleases/{enrollmentId}:
+  uriParameters:
+    enrollmentId:
+      type: "string"
+  put:
+    description: "To update an enrollment's release of information."
+    headers:
+      Authorization:
+        type: "string"
+        description: "Authorization request header should specify as HMISUserAuth\
+          \ session_token={sessiontokenvalue}."
+        example: "HMISUserAuth session_token=956048930B39448A8B6ABEDF57BECFFC07E2628546F847149BD42D4BC3CFDC39"
+      X-HMIS-TrustedApp-Id:
+        type: "string"
+        description: "Trusted App id should be provide in this header."
+        example: "MASTER_TRUSTED_APP"
+    responses:
+      200:
+        body:
+          application/json:
+            type: "object"
+      404:
+        body:
+          application/json:
+            type: "object"
+  delete:
+    description: "To delete an enrollment's release of information."
+    headers:
+      Authorization:
+        type: "string"
+        description: "Authorization request header should specify as HMISUserAuth\
+          \ session_token={sessiontokenvalue}."
+        example: "HMISUserAuth session_token=956048930B39448A8B6ABEDF57BECFFC07E2628546F847149BD42D4BC3CFDC39"
+      X-HMIS-TrustedApp-Id:
+        type: "string"
+        description: "Trusted App id should be provide in this header."
+        example: "MASTER_TRUSTED_APP"
+    responses:
+      200:
+        body:
+          application/json:
+            type: "object"
+      404:
+        body:
+          application/json:
+            type: "object"
+  get:
+    description: "To get an enrollment's release of information."
+    queryParameters:
+      startIndex:
+        type: "string"
+        default: "0"
+        required: false
+      maxItems:
+        type: "string"
+        default: "30"
+        required: false
+    headers:
+      Authorization:
+        type: "string"
+        description: "Authorization request header should specify as HMISUserAuth\
+          \ session_token={sessiontokenvalue}."
+        example: "HMISUserAuth session_token=956048930B39448A8B6ABEDF57BECFFC07E2628546F847149BD42D4BC3CFDC39"
+      X-HMIS-TrustedApp-Id:
+        type: "string"
+        description: "Trusted App id should be provide in this header."
+        example: "MASTER_TRUSTED_APP"
+    responses:
+      200:
+        body:
+          application/json:
+            type: "object"
+      404:
+        body:
+          application/json:
+            type: "object"
+/projectsgroups:
+  post:
+    description: "To create a new project group.\n"
+    headers:
+      Authorization:
+        type: "string"
+        description: "Authorization request header should specify as HMISUserAuth\
+          \ session_token={sessiontokenvalue}."
+        example: "HMISUserAuth session_token=956048930B39448A8B6ABEDF57BECFFC07E2628546F847149BD42D4BC3CFDC39"
+      X-HMIS-TrustedApp-Id:
+        type: "string"
+        description: "Trusted App id should be provide in this header."
+        example: "MASTER_TRUSTED_APP"
+    responses:
+      200:
+        body:
+          application/json:
+            type: "object"
+  get:
+    description: "To retrive existing project groups."
+    queryParameters:
+      startIndex:
+        type: "string"
+        default: "0"
+        required: false
+      maxItems:
+        type: "string"
+        default: "30"
+        required: false
+    headers:
+      Authorization:
+        type: "string"
+        description: "Authorization request header should specify as HMISUserAuth\
+          \ session_token={sessiontokenvalue}."
+        example: "HMISUserAuth session_token=956048930B39448A8B6ABEDF57BECFFC07E2628546F847149BD42D4BC3CFDC39"
+      X-HMIS-TrustedApp-Id:
+        type: "string"
+        description: "Trusted App id should be provide in this header."
+        example: "MASTER_TRUSTED_APP"
+    responses:
+      200:
+        body:
+          application/json:
+            type: "object"
+/projectgroups/{projectgroupid}:
+  uriParameters:
+    projectgroupid:
+      type: "string"
+  put:
+    description: "To update existing project group. While updating project group,\
+      \ api will remove all the assigned projects and add projects which are in new\
+      \ request body."
+    headers:
+      Authorization:
+        type: "string"
+        description: "Authorization request header should specify as HMISUserAuth\
+          \ session_token={sessiontokenvalue}."
+        example: "HMISUserAuth session_token=956048930B39448A8B6ABEDF57BECFFC07E2628546F847149BD42D4BC3CFDC39"
+      X-HMIS-TrustedApp-Id:
+        type: "string"
+        description: "Trusted App id should be provide in this header."
+        example: "MASTER_TRUSTED_APP"
+    responses:
+      200:
+        body:
+          application/json:
+            type: "object"
+      404:
+        body:
+          application/json:
+            type: "object"
+  delete:
+    description: "To remove existing project group."
+    headers:
+      Authorization:
+        type: "string"
+        description: "Authorization request header should specify as HMISUserAuth\
+          \ session_token={sessiontokenvalue}."
+        example: "HMISUserAuth session_token=956048930B39448A8B6ABEDF57BECFFC07E2628546F847149BD42D4BC3CFDC39"
+      X-HMIS-TrustedApp-Id:
+        type: "string"
+        description: "Trusted App id should be provide in this header."
+        example: "MASTER_TRUSTED_APP"
+    responses:
+      200:
+        body:
+          application/json:
+            type: "object"
+      404:
+        body:
+          application/json:
+            type: "object"
+  get:
+    description: "To retrive selected project group."
+    headers:
+      Authorization:
+        type: "string"
+        description: "Authorization request header should specify as HMISUserAuth\
+          \ session_token={sessiontokenvalue}."
+        example: "HMISUserAuth session_token=956048930B39448A8B6ABEDF57BECFFC07E2628546F847149BD42D4BC3CFDC39"
+      X-HMIS-TrustedApp-Id:
+        type: "string"
+        description: "Trusted App id should be provide in this header."
+        example: "MASTER_TRUSTED_APP"
+    responses:
+      200:
+        body:
+          application/json:
+            type: "object"
+      404:
+        body:
+          application/json:
+            type: "object"
