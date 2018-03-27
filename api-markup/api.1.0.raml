@@ -32,11 +32,64 @@ baseUri: "https://www.hmislynk.com/hmis-user-service/rest"
         type: "string"
         description: "Trusted App id should be provide in this header."
         example: "MASTER_TRUSTED_APP"
+    body:
+      application/json:
+        example: |
+          {
+              "account":{
+                      "firstName":"First Name",
+                      "lastName":"Last Name",
+                      "middleName":"Middle Name",
+                      "username":"hslynkuser@gmail.com",
+                      "password":"hSLynk",
+                      "confirmPassword":"hSLynk",
+                      "emailAddress":"hslynkuser@gmail.com",
+                      "profile":{
+                       "id":"004aed07-b4d4-4696-b8f6-1607f6f49bac"
+                      }
+              }
+          }
     responses:
       200:
         body:
           application/json:
-            type: "object"
+           example: |
+             {
+                      "account":{
+                      "accountId":"a1e8218c-0c4a-49a4-84e7-0b8f521488f1",
+                      "username":"hslynkuser@gmail.com",
+                      "emailAddress":"hslynkuser@gmail.com",
+                      "firstName":"First Name",
+                      "middleName":"Middle Name",
+                      "lastName":"Last Name",
+                      "gender":0,
+                      "status":"PENDING",
+                      "twoFactorAuthentication":false,
+                      "projectGroup":{
+                              "projectGroupName":"PROJECT_GROUP_NAME",
+                              "projectGroupDesc":"PROJECT_GROUP_DESCRIPTION",
+                              "projectGroupId":"9b9792ca-8730-4d21-9a39-6902229fd4b9",
+                              "projectGroupCode":"PG0001",
+                              "skipuseridentifers":false,
+                              "bucketName":"pg0001-6546a3c1-5cc3-4d9c-afd6-691a2704d8b9",
+                              "senderEmail":"support@hmislynk.com",
+                              "projects":[
+
+                              ]
+                      },
+                      "profile":{
+                              "profileName":"Standard Profile",
+                              "profileDescription":"Standard Profile",
+                              "apiMethods":[
+
+                              ],
+                              "id":"004aed07-b4d4-4696-b8f6-1607f6f49bac"
+                              },
+                      "roles":[
+
+                      ]
+                      }
+                      }
       409:
         description: "An account with the specified username already exists."
         body:
@@ -237,6 +290,21 @@ baseUri: "https://www.hmislynk.com/hmis-user-service/rest"
             type: "string"
             description: "Trusted App id should be provide in this header."
             example: "MASTER_TRUSTED_APP"
+        body:
+          application/json:
+            example: |
+              {
+                "roles":{
+                    "role":[
+                       {
+                          "id":"6b5857d9-bc16-4706-acde-17be5d530631"
+                       },
+                       {
+                          "id":"1ebd9476-600c-463f-8c3d-bf8accad472b"
+                       }
+                  ]
+                 }
+               }
         responses:
           200:
             body:
@@ -301,7 +369,62 @@ baseUri: "https://www.hmislynk.com/hmis-user-service/rest"
       200:
         body:
           application/json:
-            type: "object"
+           example: |
+             {
+               "profiles":{
+                  "pagination":{
+                     "from":0,
+                     "returned":5,
+                     "total":5,
+                     "maximum":30,
+                     "sort":{
+
+                     }
+                  },
+                  "profile":[
+                     {
+                        "profileName":"Standard Profile",
+                        "profileDescription":"Standard Profile",
+                        "apiMethods":[
+
+                        ],
+                        "id":"004aed07-b4d4-4696-b8f6-1607f6f49bac"
+                     },
+                     {
+                        "profileName":"Developer Profile",
+                        "profileDescription":"Developer Profile",
+                        "apiMethods":[
+
+                        ],
+                        "id":"1ebd9476-600c-463f-8c3d-bf8accad472b"
+                     },
+                     {
+                        "profileName":"Super Admin Profile",
+                        "profileDescription":"Super Admin Profile",
+                        "apiMethods":[
+
+                        ],
+                        "id":"b67c38a1-2762-4393-b69b-41a0a11e6efc"
+                     },
+                     {
+                        "profileName":"Profile Name 1461664017106",
+                        "profileDescription":"Profile Desc 1461664017106",
+                        "apiMethods":[
+
+                        ],
+                        "id":"3faedfc8-7692-411a-8157-a9cbde9fd9d1"
+                     },
+                     {
+                        "profileName":"Customer Admin Profile",
+                        "profileDescription":"Customer Admin Profile",
+                        "apiMethods":[
+
+                        ],
+                        "id":"d78c38a1-2762-4393-b69b-41a0a11e6efc"
+                     }
+                  ]
+               }
+             }
   post:
     description: "Create a new profile"
     headers:
@@ -480,7 +603,42 @@ baseUri: "https://www.hmislynk.com/hmis-user-service/rest"
       200:
         body:
           application/json:
-            type: "object"
+           example: |
+             {
+                    "roles":{
+                          "pagination":{
+                          "from":0,
+                          "returned":4,
+                          "total":4,
+                          "maximum":30,
+                          "sort":{
+
+                          }
+                    },
+                    "role":[
+                              {
+                                 "id":"1ebd9476-600c-463f-8c3d-bf8accad472b",
+                                 "roleName":"DEVELOPER",
+                                 "roleDescription":"Developer Role"
+                              },
+                              {
+                                 "id":"b67c38a1-2762-4393-b69b-41a0a11e6efd",
+                                 "roleName":"CUSTADMIN",
+                                 "roleDescription":"Customer Admin Role"
+                              },
+                              {
+                                 "id":"6b5857d9-bc16-4706-acde-17be5d530631",
+                                 "roleName":"STANDARD",
+                                 "roleDescription":"Standard Role"
+                              },
+                              {
+                                 "id":"b67c38a1-2762-4393-b69b-41a0a11e6efc",
+                                 "roleName":"SUPERADMIN",
+                                 "roleDescription":"Super Admin Role"
+                              }
+                        ]
+                    }
+              }
   post:
     description: "To create A new role"
     headers:
