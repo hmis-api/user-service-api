@@ -314,7 +314,7 @@ baseUri: "https://www.hmislynk.com/hmis-user-service/rest"
                         ]
                      }
                   }
-        403:
+        404:
           body:
             application/json:
              example: |
@@ -445,18 +445,47 @@ baseUri: "https://www.hmislynk.com/hmis-user-service/rest"
             type: "string"
             description: "Trusted App id should be provide in this header."
             example: "MASTER_TRUSTED_APP"
+        body:
+         application/json:
+           example: |
+                   {
+                    	"passwordChange":{
+                    		"currentPassword":"password",
+                    		"newPassword":"123456789@aA",
+                    		"confirmNewPassword":"123456789@aA"
+                    	}
+                    }
+
         responses:
           200:
             description: ""
             body:
               application/json:
-                type: "object"
+               example: |
+                       {
+                         "passwordChange":{
+
+                         }
+                        }
           403:
             body:
               application/json:
-                type: "object"
-    /forgotpassword:
-      description: "Change password for an account"
+               example: |
+                       {
+                         "errors":{
+                            "error":[
+                               {
+                                  "code":"ERR_CODE_INVALID_CURRENT_PASSWORD",
+                                  "message":"Invalid current password."
+                               }
+                            ]
+                         }
+                        }
+/accounts/{username}/forgotpassword:
+      description: "Reset password for an account"
+      uriParameters:
+        username:
+          type: "string"
       post:
         description: "Resets password for an account. It sends out an email notification\
           \ to the user to verify the password reset. The new password becomes effective\
@@ -478,16 +507,22 @@ baseUri: "https://www.hmislynk.com/hmis-user-service/rest"
             description: ""
             body:
               application/json:
-                type: "object"
-          403:
-            body:
-              application/json:
-                type: "object"
+                example: |
           404:
             body:
               application/json:
-                type: "object"
-    /roles:
+                example: |
+                        {
+                          "errors":{
+                             "error":[
+                                {
+                                   "code":"ACCOUNT_NOT_FOUND",
+                                   "message":"Account not found with username user@hslynk.com"
+                                }
+                             ]
+                          }
+                         }
+/accounts/{accountid}/roles:
       put:
         description: "To assigne a role to user. If the role is already assigned nothing\
           \ will happen."
@@ -520,11 +555,21 @@ baseUri: "https://www.hmislynk.com/hmis-user-service/rest"
           200:
             body:
               application/json:
-                type: "object"
+                example: |
           404:
             body:
               application/json:
-                type: "object"
+               example: |
+                       {
+                         "errors":{
+                            "error":[
+                               {
+                                  "code":"ACCOUNT_NOT_FOUND",
+                                  "message":"Account not found with username user@hslynk.com"
+                               }
+                            ]
+                         }
+                        }
       /{roleid}:
         uriParameters:
           roleid:
@@ -545,15 +590,21 @@ baseUri: "https://www.hmislynk.com/hmis-user-service/rest"
             200:
               body:
                 application/json:
-                  type: "object"
-            403:
-              body:
-                application/json:
-                  type: "object"
+                  example: |
             404:
               body:
                 application/json:
-                  type: "object"
+                  example: |
+                            {
+                              "errors":{
+                                 "error":[
+                                    {
+                                       "code":"ACCOUNT_NOT_FOUND",
+                                       "message":"Account not found with username user@hslynk.com"
+                                    }
+                                 ]
+                              }
+                             }
 /profiles:
   get:
     description: "To get all Profiles"
@@ -648,11 +699,43 @@ baseUri: "https://www.hmislynk.com/hmis-user-service/rest"
         type: "string"
         description: "Trusted App id should be provide in this header."
         example: "MASTER_TRUSTED_APP"
+    body:
+      application/json:
+        example:  |
+                  {
+                       "profile":{
+                          "profileName":"HMIS Profile Name",
+                          "profileDescription":"descriptrion",
+                          "apiMethods":[
+                             {
+                                "id":"a7a316c4-c348-408c-ae6c-806d4cfe114a"
+                             },
+                             {
+                                "id":"82500c87-0d4f-48dd-bbfa-9d4040100341"
+                             }
+                          ]
+                       }
+                    }
     responses:
       200:
         body:
           application/json:
-            type: "object"
+           example: |
+                   {
+                        "profile":{
+                          "id":"d78c38a1-2762-4393-b69b-41a0a11e6efc",
+                           "profileName":"HMIS Profile Name",
+                           "profileDescription":"descriptrion",
+                           "apiMethods":[
+                              {
+                                 "id":"a7a316c4-c348-408c-ae6c-806d4cfe114a"
+                              },
+                              {
+                                 "id":"82500c87-0d4f-48dd-bbfa-9d4040100341"
+                              }
+                           ]
+                        }
+                     }
   /{profileId}:
     uriParameters:
       profileId:
@@ -669,15 +752,56 @@ baseUri: "https://www.hmislynk.com/hmis-user-service/rest"
           type: "string"
           description: "Trusted App id should be provide in this header."
           example: "MASTER_TRUSTED_APP"
+      body:
+        application/json:
+          example:  |
+                    {
+                         "profile":{
+                            "profileName":"HMIS Profile Name",
+                            "profileDescription":"descriptrion",
+                            "apiMethods":[
+                               {
+                                  "id":"a7a316c4-c348-408c-ae6c-806d4cfe114a"
+                               },
+                               {
+                                  "id":"82500c87-0d4f-48dd-bbfa-9d4040100341"
+                               }
+                            ]
+                         }
+                      }
       responses:
         200:
           body:
             application/json:
-              type: "object"
+             example: |
+                         {
+                              "profile":{
+                                 "profileName":"HMIS Profile Name",
+                                 "profileDescription":"descriptrion",
+                                 "apiMethods":[
+                                    {
+                                       "id":"a7a316c4-c348-408c-ae6c-806d4cfe114a"
+                                    },
+                                    {
+                                       "id":"82500c87-0d4f-48dd-bbfa-9d4040100341"
+                                    }
+                                 ]
+                              }
+                           }
         404:
           body:
             application/json:
-              type: "object"
+             example: |
+                       {
+                         "errors":{
+                            "error":[
+                               {
+                                  "code":"ERR_CODE_PROFILE_NOT_FOUND",
+                                  "message":"Profile not found"
+                               }
+                            ]
+                         }
+                        }
     delete:
       description: "To Delete A specific Profile\n"
       headers:
@@ -694,11 +818,21 @@ baseUri: "https://www.hmislynk.com/hmis-user-service/rest"
         200:
           body:
             application/json:
-              type: "object"
+             example: |
         404:
           body:
             application/json:
-              type: "object"
+             example: |
+                       {
+                         "errors":{
+                            "error":[
+                               {
+                                  "code":"ERR_CODE_PROFILE_NOT_FOUND",
+                                  "message":"Profile not found"
+                               }
+                            ]
+                         }
+                        }
     get:
       description: "To get a Specific Profile Details"
       headers:
@@ -715,11 +849,36 @@ baseUri: "https://www.hmislynk.com/hmis-user-service/rest"
         200:
           body:
             application/json:
-              type: "object"
+             example:  |
+                     {
+                          "profile":{
+                            "id":"d78c38a1-2762-4393-b69b-41a0a11e6efc",
+                             "profileName":"HMIS Profile Name",
+                             "profileDescription":"descriptrion",
+                             "apiMethods":[
+                                {
+                                   "id":"a7a316c4-c348-408c-ae6c-806d4cfe114a"
+                                },
+                                {
+                                   "id":"82500c87-0d4f-48dd-bbfa-9d4040100341"
+                                }
+                             ]
+                          }
+                       }
         404:
           body:
-            application/json:
-              type: "object"
+           application/json:
+            example: |
+                      {
+                        "errors":{
+                           "error":[
+                              {
+                                 "code":"ERR_CODE_PROFILE_NOT_FOUND",
+                                 "message":"Profile not found"
+                              }
+                           ]
+                        }
+                       }
 /sharingrules:
   post:
     description: "Create a new sharing rule."
@@ -862,11 +1021,27 @@ baseUri: "https://www.hmislynk.com/hmis-user-service/rest"
         type: "string"
         description: "Trusted App id should be provide in this header."
         example: "MASTER_TRUSTED_APP"
+    body:
+      application/json:
+        example: |
+                {
+                   "role":{
+                      "id":"1ebd9476-600c-463f-8c3d-bf8accad472b",
+                      "roleName":"DEVELOPER",
+                      "roleDescription":"Developer Role"
+                   }
+                }
     responses:
       200:
         body:
           application/json:
-            type: "object"
+            example: |
+                        {
+                           "role":{
+                              "roleName":"DEVELOPER",
+                              "roleDescription":"Developer Role"
+                           }
+                        }
   /{roleid}:
     uriParameters:
       roleid:
@@ -883,15 +1058,40 @@ baseUri: "https://www.hmislynk.com/hmis-user-service/rest"
           type: "string"
           description: "Trusted App id should be provide in this header."
           example: "MASTER_TRUSTED_APP"
+      body:
+        application/json:
+          example: |
+                    {
+                       "role":{
+                          "roleName":"DEVELOPER",
+                          "roleDescription":"Developer Role"
+                       }
+                    }
       responses:
         200:
           body:
             application/json:
-              type: "object"
+              example: |
+                          {
+                             "role":{
+                                "roleName":"DEVELOPER",
+                                "roleDescription":"Developer Role"
+                             }
+                          }
         404:
           body:
             application/json:
-              type: "object"
+              example: |
+                        {
+                          "errors":{
+                             "error":[
+                                {
+                                   "code":"ERR_CODE_ROLE_NOT_FOUND",
+                                   "message":"Role not found"
+                                }
+                             ]
+                          }
+                         }
     delete:
       description: "To delete a Specific role"
       headers:
@@ -908,11 +1108,21 @@ baseUri: "https://www.hmislynk.com/hmis-user-service/rest"
         200:
           body:
             application/json:
-              type: "object"
+              example: |
         404:
           body:
             application/json:
-              type: "object"
+              example: |
+                        {
+                          "errors":{
+                             "error":[
+                                {
+                                   "code":"ERR_CODE_ROLE_NOT_FOUND",
+                                   "message":"Role not found"
+                                }
+                             ]
+                          }
+                         }
 /permissionsets:
   post:
     description: "To create a new Permission Set."
@@ -1135,11 +1345,27 @@ baseUri: "https://www.hmislynk.com/hmis-user-service/rest"
         type: "string"
         description: "Trusted App id should be provide in this header."
         example: "MASTER_TRUSTED_APP"
+    body:
+      application/json:
+        example:
+          {
+             "projectgroup":{
+                "projectGroupName":"PROJECT_GROUP_NAME",
+                "projectGroupDesc":"PROJECT_GROUP_DESCRIPTION"
+             }
+          }
     responses:
       200:
         body:
           application/json:
-            type: "object"
+            example: |
+                      {
+                         "projectgroup":{
+                            "id":"1ebd9476-600c-463f-8c3d-bf8accad472b",
+                            "projectGroupName":"PROJECT_GROUP_NAME",
+                            "projectGroupDesc":"PROJECT_GROUP_DESCRIPTION"
+                         }
+                      }
   get:
     description: "To retrive existing project groups."
     queryParameters:
@@ -1165,7 +1391,32 @@ baseUri: "https://www.hmislynk.com/hmis-user-service/rest"
       200:
         body:
           application/json:
-            type: "object"
+           example: |
+                   {
+                     "projectgroups":{
+                        "pagination":{
+                           "from":0,
+                           "returned":2,
+                           "total":2,
+                           "maximum":30,
+                           "sort":{
+
+                           }
+                        },
+                        "projectgroup":[
+                           {
+                              "id":"1ebd9476-600c-463f-8c3d-bf8accad472b",
+                              "projectGroupName":"PROJECT_GROUP_NAME",
+                              "projectGroupDesc":"PROJECT_GROUP_DESCRIPTION"
+                           },
+                           {
+                              "id":"1ebd9476-600c-463f-8c3d-bf8accad472b",
+                              "projectGroupName":"PROJECT_GROUP_NAME2",
+                              "projectGroupDesc":"PROJECT_GROUP_DESCRIPTION2"
+                           }
+                        ]
+                     }
+                   }
   /{projectgroupid}:
     uriParameters:
       projectgroupid:
@@ -1184,15 +1435,40 @@ baseUri: "https://www.hmislynk.com/hmis-user-service/rest"
           type: "string"
           description: "Trusted App id should be provide in this header."
           example: "MASTER_TRUSTED_APP"
+      body:
+        application/json:
+          example:  |
+                  {
+                   "projectgroup":{
+                      "projectGroupName":"PROJECT_GROUP_NAME",
+                      "projectGroupDesc":"PROJECT_GROUP_DESCRIPTION"
+                   }
+                  }
       responses:
         200:
           body:
             application/json:
-              type: "object"
+             example: |
+                       {
+                        "projectgroup":{
+                           "projectGroupName":"PROJECT_GROUP_NAME",
+                           "projectGroupDesc":"PROJECT_GROUP_DESCRIPTION"
+                        }
+                       }
         404:
           body:
             application/json:
-              type: "object"
+              example: |
+                        {
+                          "errors":{
+                             "error":[
+                                {
+                                   "code":"ERR_CODE_PROJECT_GROUP_NOT_FOUND",
+                                   "message":"Project Group not found"
+                                }
+                             ]
+                          }
+                         }
     delete:
       description: "To remove existing project group."
       headers:
@@ -1209,11 +1485,21 @@ baseUri: "https://www.hmislynk.com/hmis-user-service/rest"
         200:
           body:
             application/json:
-              type: "object"
+              example: |
         404:
           body:
             application/json:
-              type: "object"
+              example: |
+                        {
+                          "errors":{
+                             "error":[
+                                {
+                                   "code":"ERR_CODE_PROJECT_GROUP_NOT_FOUND",
+                                   "message":"Project Group not found"
+                                }
+                             ]
+                          }
+                         }
     get:
       description: "To retrieve selected project group."
       headers:
@@ -1230,8 +1516,25 @@ baseUri: "https://www.hmislynk.com/hmis-user-service/rest"
         200:
           body:
             application/json:
-              type: "object"
+              example: |
+                      {
+                         "projectgroup":{
+                            "id":"1ebd9476-600c-463f-8c3d-bf8accad472b",
+                            "projectGroupName":"PROJECT_GROUP_NAME",
+                            "projectGroupDesc":"PROJECT_GROUP_DESCRIPTION"
+                         }
+                      }
         404:
           body:
             application/json:
-              type: "object"
+              example: |
+                        {
+                          "errors":{
+                             "error":[
+                                {
+                                   "code":"ERR_CODE_PROJECT_GROUP_NOT_FOUND",
+                                   "message":"Project Group not found"
+                                }
+                             ]
+                          }
+                         }
