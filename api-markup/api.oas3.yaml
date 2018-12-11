@@ -3,7 +3,7 @@ info:
   title: HMIS User Service
   version: 1.0.0
 servers:
-  - url: 'https://www.hmislynk.com/hmis-user-service/rest'
+  - url: 'https://www.hslynk.com/hmis-user-service/rest'
 paths:
   /accounts:
     post:
