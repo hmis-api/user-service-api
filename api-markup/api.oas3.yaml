@@ -1307,6 +1307,87 @@ paths:
         required: true
         schema:
           type: string
+  /apimethodauthcheck/{apimethodid}:
+    parameters:
+    - name: Authorization
+      in: header
+      required: true
+      description: >-
+        Authorization request header should specify as HMISUserAuth
+        session_token={sessiontokenvalue}.
+      schema:
+        type: string
+    - name: X-HMIS-TrustedApp-Id
+      in: header
+      required: true
+      description: Trusted App id should be provide in this header.
+      schema:
+        type: string
+    - name: apimethodid
+      in: path
+      required: true
+      description: API method id
+      schema:
+        type: string
+    get:
+      responses:
+        '200':
+          description: ''
+          content:
+           application/json:
+            schema:
+              example:
+                      apiMethodAuthorizationCheck:
+                        trustedAppId: MASTER_TRUSTED_APP
+                        accessToken: F29B405D91A648659F896F29B05D609446D1D2E9494648079AC2267499CD75A5
+                        apiMethodId: USR_CHECK_API_AUTHORIZATION
+                        trustedApp:
+                          trustedAppId: MASTER_TRUSTED_APP
+                          friendlyName: MASTER_TRUSTED_APP
+                          description: MASTER_TRUSTED_APP
+                          status: ACTIVE
+                          trustedAppFamilyType: APP
+                          trustedAppProfileType: NATIVE
+                        account:
+                          accountId: 8b6c6ef2-87c7-47f0-8874-4cca6f09365c
+                          username: superadmin@hmis.com
+                          emailAddress: hmisprojects@gmail.com
+                          firstName: Surya
+                          middleName: middle
+                          lastName: Yadavalli
+                          gender: 0
+                          status: ACTIVE
+                          twoFactorAuthentication: false
+                          projectGroup:
+                            projectGroupName: PROJECT_GROUP_NAME
+                            projectGroupDesc: PROJECT_GROUP_DESCRIPTION
+                            projectGroupId: 9b9792ca-8730-4d21-9a39-6902229fd4b9
+                            projectGroupCode: PG0001
+                            skipuseridentifers: false
+                            bucketName: pg0001-6546a3c1-5cc3-4d9c-afd6-691a2704d8b9
+                            senderEmail: mc211_support@ctagroup.org
+                            projects: []
+                          profile:
+                            profileName: Super Admin Profile
+                            profileDescription: Super Admin Profile
+                            apiMethods: []
+                            id: b67c38a1-2762-4393-b69b-41a0a11e6efc
+                          roles:
+                          - id: b67c38a1-2762-4393-b69b-41a0a11e6efc
+                            roleName: SUPERADMIN
+                            roleDescription: Super Admin Role
+                        checkSessionToken: true
+              
+        '401':
+          description: ''
+          content:
+            application/json:
+              schema:
+                example:
+                            errors:
+                                error:
+                                - code: INVALID_SESSION_TOKEN
+                                  message: 'token has expired: 11B88EAFF0184196A846A54CFB35BDEB4BD06E79BB9145F78524FC37A3F0DE63'          
 components:
   schemas: {}
   responses: {}
@@ -1321,7 +1402,7 @@ components:
       type: oauth2
       flows:
         password:
-          tokenUrl: 'https://hmislynk.com/hmis-authorization-service/rest/token'
+          tokenUrl: 'https://hslynk.com/hmis-authorization-service/rest/token'
           scopes:
             user: ''
             administrator: ''
