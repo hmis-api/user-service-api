@@ -449,7 +449,28 @@ paths:
           content:
             application/json:
               schema:
-                type: object
+                example : 
+                          profiles:
+                            pagination:
+                              from: 0
+                              returned: 3
+                              total: 7
+                              maximum: 30
+                              sort: {}
+                            profile:
+                            - profileName: Standard Profile
+                              profileDescription: Standard Profile
+                              apiMethods: []
+                              id: 004aed07-b4d4-4696-b8f6-1607f6f49bac
+                            - profileName: Developer Profile
+                              profileDescription: Developer Profile
+                              apiMethods: []
+                              id: 1ebd9476-600c-463f-8c3d-bf8accad472b
+                            - profileName: Super Admin Profile
+                              profileDescription: Super Admin Profile
+                              apiMethods: []
+                              id: b67c38a1-2762-4393-b69b-41a0a11e6efc
+
       description: To get all Profiles
       operationId: GET_profiles
       parameters:
@@ -1150,7 +1171,8 @@ paths:
           content:
             application/json:
               schema:
-                type: object
+                example :
+
       description: |
         To create a new project group.
       operationId: POST_projectgroups
@@ -1176,7 +1198,29 @@ paths:
           content:
             application/json:
               schema:
-                type: object
+                example: 
+                        projectgroups:
+                            pagination:
+                              from: 0
+                              returned: 19
+                              total: 19
+                              maximum: 30
+                              sort: {}
+                            projectGroups:
+                            - projectGroupName: CK Project
+                              projectGroupDesc: Test CK Project
+                              projectGroupId: 34926f5a-3bc6-42af-ba30-9f0a9746316d
+                              projectGroupCode: CP0004
+                              skipuseridentifers: false
+                              bucketName: cp0004-6546a3c1-5cc3-4d9c-afd6-691a2704d8b9
+                              projects: []
+                            - projectGroupName: Skid Row Housing Trust
+                              projectGroupDesc: Project group for Skid Row Housing Trust
+                              projectGroupId: c1bc338e-89c9-4dad-a0a1-12cbbec9c1c4
+                              projectGroupCode: SR0012
+                              skipuseridentifers: false
+                              bucketName: sr0014-332894dd-eaff-4308-9c51-49ffb924131b
+                              projects: []
       description: To retrive existing project groups.
       operationId: GET_projectgroups
       parameters:
