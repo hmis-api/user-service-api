@@ -733,7 +733,24 @@ paths:
           content:
             application/json:
               schema:
-                type: object
+               example : 
+                   roles:
+                      pagination:
+                        from: 0
+                        returned: 3
+                        total: 3
+                        maximum: 30
+                        sort: {}
+                      role:
+                      - id: 1ebd9476-600c-463f-8c3d-bf8accad472b
+                        roleName: DEVELOPER
+                        roleDescription: Developer Role
+                      - id: b67c38a1-2762-4393-b69b-41a0a11e6efd
+                        roleName: CUSTADMIN
+                        roleDescription: Customer Admin Role
+                      - id: 6b5857d9-bc16-4706-acde-17be5d530631
+                        roleName: STANDARD
+                        roleDescription: Standard Role
       description: To get All the roles.
       operationId: GET_roles
       parameters:
