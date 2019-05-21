@@ -1040,6 +1040,7 @@ paths:
           type: string
   /informationreleases:
     post:
+      deprecated: true
       responses:
         '200':
           description: ''
@@ -1072,6 +1073,7 @@ paths:
             type: string
   '/informationreleases/{enrollmentId}':
     put:
+      deprecated: true
       responses:
         '200':
           description: ''
@@ -1103,6 +1105,7 @@ paths:
           schema:
             type: string
     delete:
+      deprecated: true
       responses:
         '200':
           description: ''
@@ -1134,6 +1137,7 @@ paths:
           schema:
             type: string
     get:
+      deprecated: true
       responses:
         '200':
           description: ''
