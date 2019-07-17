@@ -212,7 +212,7 @@ paths:
         required: true
         schema:
           type: string
-  '/accounts/{accountid}/activate/basicinfo':
+  '/accounts/{accountid}/basicinfo':
     get:
       responses:
         '200':
@@ -221,13 +221,46 @@ paths:
           content:
             application/json:
               schema:
-                type: object
-        '403':
+                example:  |
+                              account:
+                                accountId: 8b6c6ef2-87c7-47f0-8874-4cca6f09365c
+                                username: superadmin@hmis.com
+                                emailAddress: hmisprojects@gmail.com
+                                firstName: Surya
+                                middleName: middle
+                                lastName: Yadavalli
+                                gender: 0
+                                status: ACTIVE
+                                twoFactorAuthentication: false
+                                projectGroup:
+                                  projectGroupName: PROJECT_GROUP_NAME
+                                  projectGroupDesc: PROJECT_GROUP_DESCRIPTION
+                                  projectGroupId: 9b9792ca-8730-4d21-9a39-6902229fd4b9
+                                  projectGroupCode: PG0001
+                                  skipuseridentifers: false
+                                  bucketName: pg0001-6546a3c1-5cc3-4d9c-afd6-691a2704d8b9
+                                  projects: []
+                                profile:
+                                  profileName: Super Admin Profile
+                                  profileDescription: Super Admin Profile
+                                  apiMethods: []
+                                  id: b67c38a1-2762-4393-b69b-41a0a11e6efc
+                                roles:
+                                  - id: b67c38a1-2762-4393-b69b-41a0a11e6efc
+                                    roleName: SUPERADMIN
+                                    roleDescription: Super Admin Role
+                              
+        '401':
           description: ''
           content:
             application/json:
               schema:
-                type: object
+                example:  |
+                            errors:
+                              error:
+                                - code: INVALID_SESSION_TOKEN
+                                  message: 'token has expired: 61E86CA8574C4112BB20082BE971F16150F803E261D4450DB0F5BA3A528533B2'
+                            
       description: |
         Gets (aka reads or retrieves) a specific account. <BR><br>
         GET /accounts/{username}
@@ -254,6 +287,7 @@ paths:
         required: true
         schema:
           type: string
+          default : self
   '/accounts/{accountid}/activate/passwordchanges':
     put:
       responses:
