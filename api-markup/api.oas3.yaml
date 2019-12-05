@@ -1,9 +1,12 @@
 openapi: 3.0.0
 info:
   title: HMIS User Service
-  version: 1.0.0
+  version: 1.0.1
+  description: |
+       **Note :**
+              Please note that the partial updates are supported via PUT APIs. However, Note that If "null" value is passed for any element, in the PUT request body, it will be ignored. An empty string value should be sent (instead of "null" value) for the elements that need to be updated with NULL values.
 servers:
-  - url: 'https://www.hmislynk.com/hmis-user-service/rest'
+  - url: 'https://www.hslynk.com/hmis-user-service/rest'
 paths:
   /accounts:
     post:
@@ -209,7 +212,7 @@ paths:
         required: true
         schema:
           type: string
-  '/accounts/{accountid}/activate/basicinfo':
+  '/accounts/{accountid}/basicinfo':
     get:
       responses:
         '200':
@@ -218,13 +221,45 @@ paths:
           content:
             application/json:
               schema:
-                type: object
-        '403':
+                example:  
+                        account:
+                            accountId: 8b6c6ef2-87c7-47f0-8874-4cca6f09365c
+                            username: superadmin@hmis.com
+                            emailAddress: hmisprojects@gmail.com
+                            firstName: Surya
+                            middleName: middle
+                            lastName: Yadavalli
+                            gender: 0
+                            status: ACTIVE
+                            twoFactorAuthentication: false
+                            projectGroup:
+                              projectGroupName: PROJECT_GROUP_NAME
+                              projectGroupDesc: PROJECT_GROUP_DESCRIPTION
+                              projectGroupId: 9b9792ca-8730-4d21-9a39-6902229fd4b9
+                              projectGroupCode: PG0001
+                              skipuseridentifers: false
+                              bucketName: pg0001-6546a3c1-5cc3-4d9c-afd6-691a2704d8b9
+                              projects: []
+                            profile:
+                              profileName: Super Admin Profile
+                              profileDescription: Super Admin Profile
+                              apiMethods: []
+                              id: b67c38a1-2762-4393-b69b-41a0a11e6efc
+                            roles:
+                            - id: b67c38a1-2762-4393-b69b-41a0a11e6efc
+                              roleName: SUPERADMIN
+                              roleDescription: Super Admin Role
+                              
+        '401':
           description: ''
           content:
             application/json:
               schema:
-                type: object
+                example:  
+                          errors:
+                              error:
+                              - code: INVALID_SESSION_TOKEN
+                                message: 'token has expired: 61E86CA8574C4112BB20082BE971F16150F803E261D4450DB0F5BA3A528533B2'
       description: |
         Gets (aka reads or retrieves) a specific account. <BR><br>
         GET /accounts/{username}
@@ -251,6 +286,7 @@ paths:
         required: true
         schema:
           type: string
+          default : self
   '/accounts/{accountid}/activate/passwordchanges':
     put:
       responses:
@@ -446,7 +482,28 @@ paths:
           content:
             application/json:
               schema:
-                type: object
+                example : 
+                          profiles:
+                            pagination:
+                              from: 0
+                              returned: 3
+                              total: 7
+                              maximum: 30
+                              sort: {}
+                            profile:
+                            - profileName: Standard Profile
+                              profileDescription: Standard Profile
+                              apiMethods: []
+                              id: 004aed07-b4d4-4696-b8f6-1607f6f49bac
+                            - profileName: Developer Profile
+                              profileDescription: Developer Profile
+                              apiMethods: []
+                              id: 1ebd9476-600c-463f-8c3d-bf8accad472b
+                            - profileName: Super Admin Profile
+                              profileDescription: Super Admin Profile
+                              apiMethods: []
+                              id: b67c38a1-2762-4393-b69b-41a0a11e6efc
+
       description: To get all Profiles
       operationId: GET_profiles
       parameters:
@@ -709,7 +766,24 @@ paths:
           content:
             application/json:
               schema:
-                type: object
+               example : 
+                   roles:
+                      pagination:
+                        from: 0
+                        returned: 3
+                        total: 3
+                        maximum: 30
+                        sort: {}
+                      role:
+                      - id: 1ebd9476-600c-463f-8c3d-bf8accad472b
+                        roleName: DEVELOPER
+                        roleDescription: Developer Role
+                      - id: b67c38a1-2762-4393-b69b-41a0a11e6efd
+                        roleName: CUSTADMIN
+                        roleDescription: Customer Admin Role
+                      - id: 6b5857d9-bc16-4706-acde-17be5d530631
+                        roleName: STANDARD
+                        roleDescription: Standard Role
       description: To get All the roles.
       operationId: GET_roles
       parameters:
@@ -999,6 +1073,7 @@ paths:
           type: string
   /informationreleases:
     post:
+      deprecated: true
       responses:
         '200':
           description: ''
@@ -1031,6 +1106,7 @@ paths:
             type: string
   '/informationreleases/{enrollmentId}':
     put:
+      deprecated: true
       responses:
         '200':
           description: ''
@@ -1062,6 +1138,7 @@ paths:
           schema:
             type: string
     delete:
+      deprecated: true
       responses:
         '200':
           description: ''
@@ -1093,6 +1170,7 @@ paths:
           schema:
             type: string
     get:
+      deprecated: true
       responses:
         '200':
           description: ''
@@ -1147,10 +1225,19 @@ paths:
           content:
             application/json:
               schema:
-                type: object
+                example :
+
       description: |
         To create a new project group.
       operationId: POST_projectgroups
+      requestBody:
+        content:
+          application/json:
+            schema:
+              example:
+                  projectGroup:
+                      projectGroupName: new project group
+                      projectGroupDesc: new project group
       parameters:
         - name: Authorization
           in: header
@@ -1173,7 +1260,29 @@ paths:
           content:
             application/json:
               schema:
-                type: object
+                example: 
+                        projectgroups:
+                            pagination:
+                              from: 0
+                              returned: 19
+                              total: 19
+                              maximum: 30
+                              sort: {}
+                            projectGroups:
+                            - projectGroupName: CK Project
+                              projectGroupDesc: Test CK Project
+                              projectGroupId: 34926f5a-3bc6-42af-ba30-9f0a9746316d
+                              projectGroupCode: CP0004
+                              skipuseridentifers: false
+                              bucketName: cp0004-6546a3c1-5cc3-4d9c-afd6-691a2704d8b9
+                              projects: []
+                            - projectGroupName: Skid Row Housing Trust
+                              projectGroupDesc: Project group for Skid Row Housing Trust
+                              projectGroupId: c1bc338e-89c9-4dad-a0a1-12cbbec9c1c4
+                              projectGroupCode: SR0012
+                              skipuseridentifers: false
+                              bucketName: sr0014-332894dd-eaff-4308-9c51-49ffb924131b
+                              projects: []
       description: To retrive existing project groups.
       operationId: GET_projectgroups
       parameters:
@@ -1221,6 +1330,14 @@ paths:
         remove all the assigned projects and add projects which are in new
         request body.
       operationId: PUT_projectgroups-projectgroupid
+      requestBody:
+        content:
+          application/json:
+            schema:
+              example:
+                  projectGroup:
+                      projectGroupName: new project group Name
+                      projectGroupDesc: new project group Desc     
       parameters:
         - name: Authorization
           in: header
@@ -1304,6 +1421,87 @@ paths:
         required: true
         schema:
           type: string
+  /apimethodauthcheck/{apimethodid}:
+    parameters:
+    - name: Authorization
+      in: header
+      required: true
+      description: >-
+        Authorization request header should specify as HMISUserAuth
+        session_token={sessiontokenvalue}.
+      schema:
+        type: string
+    - name: X-HMIS-TrustedApp-Id
+      in: header
+      required: true
+      description: Trusted App id should be provide in this header.
+      schema:
+        type: string
+    - name: apimethodid
+      in: path
+      required: true
+      description: API method id
+      schema:
+        type: string
+    get:
+      responses:
+        '200':
+          description: ''
+          content:
+           application/json:
+            schema:
+              example:
+                      apiMethodAuthorizationCheck:
+                        trustedAppId: MASTER_TRUSTED_APP
+                        accessToken: F29B405D91A648659F896F29B05D609446D1D2E9494648079AC2267499CD75A5
+                        apiMethodId: USR_CHECK_API_AUTHORIZATION
+                        trustedApp:
+                          trustedAppId: MASTER_TRUSTED_APP
+                          friendlyName: MASTER_TRUSTED_APP
+                          description: MASTER_TRUSTED_APP
+                          status: ACTIVE
+                          trustedAppFamilyType: APP
+                          trustedAppProfileType: NATIVE
+                        account:
+                          accountId: 8b6c6ef2-87c7-47f0-8874-4cca6f09365c
+                          username: superadmin@hmis.com
+                          emailAddress: hmisprojects@gmail.com
+                          firstName: Surya
+                          middleName: middle
+                          lastName: Yadavalli
+                          gender: 0
+                          status: ACTIVE
+                          twoFactorAuthentication: false
+                          projectGroup:
+                            projectGroupName: PROJECT_GROUP_NAME
+                            projectGroupDesc: PROJECT_GROUP_DESCRIPTION
+                            projectGroupId: 9b9792ca-8730-4d21-9a39-6902229fd4b9
+                            projectGroupCode: PG0001
+                            skipuseridentifers: false
+                            bucketName: pg0001-6546a3c1-5cc3-4d9c-afd6-691a2704d8b9
+                            senderEmail: mc211_support@ctagroup.org
+                            projects: []
+                          profile:
+                            profileName: Super Admin Profile
+                            profileDescription: Super Admin Profile
+                            apiMethods: []
+                            id: b67c38a1-2762-4393-b69b-41a0a11e6efc
+                          roles:
+                          - id: b67c38a1-2762-4393-b69b-41a0a11e6efc
+                            roleName: SUPERADMIN
+                            roleDescription: Super Admin Role
+                        checkSessionToken: true
+              
+        '401':
+          description: ''
+          content:
+            application/json:
+              schema:
+                example:
+                            errors:
+                                error:
+                                - code: INVALID_SESSION_TOKEN
+                                  message: 'token has expired: 11B88EAFF0184196A846A54CFB35BDEB4BD06E79BB9145F78524FC37A3F0DE63'          
 components:
   schemas: {}
   responses: {}
@@ -1318,7 +1516,7 @@ components:
       type: oauth2
       flows:
         password:
-          tokenUrl: 'https://hmislynk.com/hmis-authorization-service/rest/token'
+          tokenUrl: 'https://hslynk.com/hmis-authorization-service/rest/token'
           scopes:
             user: ''
             administrator: ''
