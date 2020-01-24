@@ -1,12 +1,12 @@
 openapi: 3.0.0
 info:
   title: HMIS User Service
-  version: 1.0.2
+  version: 1.0.3
   description: |
        **Note :**
               Please note that the partial updates are supported via PUT APIs. However, Note that If "null" value is passed for any element, in the PUT request body, it will be ignored. An empty string value should be sent (instead of "null" value) for the elements that need to be updated with NULL values.
 servers:
-  - url: 'https://www.hslynk.com/hmis-user-service/rest'
+  - url: 'https://api.hslynk.com/hmis-user-service/rest'
 paths:
   /accounts:
     post:
@@ -38,12 +38,12 @@ paths:
         will be assigned to the user.
 
         2) If request does not contain role information, default role will be
-        assigned based on profile.    
+        assigned based on profile.
 
         3) Project Group of the user will be same as the project group of
         logged-in user who creates the account.
 
-        The user must have "USR_CREATE_ACCOUNT" permission to use this API    
+        The user must have "USR_CREATE_ACCOUNT" permission to use this API
       operationId: POST_accounts
       parameters:
         - name: Authorization
@@ -150,7 +150,7 @@ paths:
         default:
           description: ''
       description: |
-        Account status will be updated to DELETED. 
+        Account status will be updated to DELETED.
       operationId: DELETE_accounts-accountid
       parameters:
         - name: Authorization
@@ -221,7 +221,7 @@ paths:
           content:
             application/json:
               schema:
-                example:  
+                example:
                         account:
                             accountId: 8b6c6ef2-87c7-47f0-8874-4cca6f09365c
                             username: superadmin@hmis.com
@@ -249,13 +249,13 @@ paths:
                             - id: b67c38a1-2762-4393-b69b-41a0a11e6efc
                               roleName: SUPERADMIN
                               roleDescription: Super Admin Role
-                              
+
         '401':
           description: ''
           content:
             application/json:
               schema:
-                example:  
+                example:
                           errors:
                               error:
                               - code: INVALID_SESSION_TOKEN
@@ -482,7 +482,7 @@ paths:
           content:
             application/json:
               schema:
-                example : 
+                example :
                           profiles:
                             pagination:
                               from: 0
@@ -766,7 +766,7 @@ paths:
           content:
             application/json:
               schema:
-               example : 
+               example :
                    roles:
                       pagination:
                         from: 0
@@ -1260,7 +1260,7 @@ paths:
           content:
             application/json:
               schema:
-                example: 
+                example:
                         projectgroups:
                             pagination:
                               from: 0
@@ -1337,7 +1337,7 @@ paths:
               example:
                   projectGroup:
                       projectGroupName: new project group Name
-                      projectGroupDesc: new project group Desc     
+                      projectGroupDesc: new project group Desc
       parameters:
         - name: Authorization
           in: header
@@ -1491,7 +1491,7 @@ paths:
                             roleName: SUPERADMIN
                             roleDescription: Super Admin Role
                         checkSessionToken: true
-              
+
         '401':
           description: ''
           content:
@@ -1501,7 +1501,7 @@ paths:
                             errors:
                                 error:
                                 - code: INVALID_SESSION_TOKEN
-                                  message: 'token has expired: 11B88EAFF0184196A846A54CFB35BDEB4BD06E79BB9145F78524FC37A3F0DE63'          
+                                  message: 'token has expired: 11B88EAFF0184196A846A54CFB35BDEB4BD06E79BB9145F78524FC37A3F0DE63'
 components:
   schemas: {}
   responses: {}
