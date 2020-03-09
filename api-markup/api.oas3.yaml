@@ -1,7 +1,7 @@
 openapi: 3.0.0
 info:
   title: HMIS User Service
-  version: 1.0.3
+  version: 1.0.4
   description: |
        **Note :**
               Please note that the partial updates are supported via PUT APIs. However, Note that If "null" value is passed for any element, in the PUT request body, it will be ignored. An empty string value should be sent (instead of "null" value) for the elements that need to be updated with NULL values.
@@ -287,7 +287,7 @@ paths:
         schema:
           type: string
           default : self
-  '/accounts/{accountid}/activate/passwordchanges':
+  '/accounts/{accountid}/passwordchanges':
     put:
       responses:
         '200':
@@ -334,7 +334,52 @@ paths:
         required: true
         schema:
           type: string
-  '/accounts/{accountid}/activate/forgotpassword':
+  '/accounts/{username}/passwordupdate':
+    put:
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+               example: |
+        '403':
+          description: ''
+          content:
+            application/json:
+              schema:
+                example: 
+                            errors:
+                                error:
+                                - code: ACCESS_DENIED
+                                  message: 'Customer admin only can perform this operation'
+      description: >
+        Customer Admin can update any user's password with in the project group. Once request is success user and admin will receive acknowledgement via email.
+
+        The {username} is a value that uniquely identifies an account.
+      operationId: PUT_accounts-accountid--passwordupdate
+      parameters:
+        - name: Authorization
+          in: header
+          required: true
+          description: >-
+            Authorization request header should specify as HMISUserAuth
+            session_token={sessiontokenvalue}.
+          schema:
+            type: string
+        - name: X-HMIS-TrustedApp-Id
+          in: header
+          required: true
+          description: Trusted App id should be provide in this header.
+          schema:
+            type: string
+    parameters:
+      - name: username
+        in: path
+        required: true
+        schema:
+          type: string          
+  '/accounts/{accountid}/forgotpassword':
     post:
       responses:
         '200':
