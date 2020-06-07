@@ -348,7 +348,7 @@ paths:
           content:
             application/json:
               schema:
-                example: 
+                example:
                             errors:
                                 error:
                                 - code: ACCESS_DENIED
@@ -378,7 +378,7 @@ paths:
         in: path
         required: true
         schema:
-          type: string          
+          type: string
   '/accounts/{accountid}/forgotpassword':
     post:
       responses:
@@ -538,18 +538,16 @@ paths:
                             profile:
                             - profileName: Standard Profile
                               profileDescription: Standard Profile
+                              profileLevel: 2
                               apiMethods: []
                               id: 004aed07-b4d4-4696-b8f6-1607f6f49bac
                             - profileName: Developer Profile
                               profileDescription: Developer Profile
+                              profileLevel: 3
                               apiMethods: []
                               id: 1ebd9476-600c-463f-8c3d-bf8accad472b
-                            - profileName: Super Admin Profile
-                              profileDescription: Super Admin Profile
-                              apiMethods: []
-                              id: b67c38a1-2762-4393-b69b-41a0a11e6efc
 
-      description: To get all Profiles
+      description: To get all Profiles depending on the logged-in users profile level.
       operationId: GET_profiles
       parameters:
         - name: Authorization
@@ -583,7 +581,14 @@ paths:
           content:
             application/json:
               schema:
-                type: object
+                example :
+                          profile:
+                          - profileName: Standard Profile
+                            profileDescription: Standard Profile
+                            profileLevel: 2
+                            apiMethods: []
+                            id: 004aed07-b4d4-4696-b8f6-1607f6f49bac
+
       description: Create a new profile
       operationId: POST_profiles
       parameters:
@@ -609,7 +614,13 @@ paths:
           content:
             application/json:
               schema:
-                type: object
+                example :
+                          profile:
+                          - profileName: Standard Profile
+                            profileDescription: Standard Profile
+                            profileLevel: 2
+                            apiMethods: []
+                            id: 004aed07-b4d4-4696-b8f6-1607f6f49bac
         '404':
           description: ''
           content:
