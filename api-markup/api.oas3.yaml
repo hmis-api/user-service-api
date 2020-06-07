@@ -587,7 +587,6 @@ paths:
                             profileDescription: Standard Profile
                             profileLevel: 2
                             apiMethods: []
-                            id: 004aed07-b4d4-4696-b8f6-1607f6f49bac
 
       description: Create a new profile
       operationId: POST_profiles
@@ -683,7 +682,13 @@ paths:
           content:
             application/json:
               schema:
-                type: object
+                example :
+                          profile:
+                          - profileName: Standard Profile
+                            profileDescription: Standard Profile
+                            profileLevel: 2
+                            apiMethods: []
+                            id: 004aed07-b4d4-4696-b8f6-1607f6f49bac
         '404':
           description: ''
           content:
