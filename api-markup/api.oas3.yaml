@@ -1,7 +1,7 @@
 openapi: 3.0.0
 info:
   title: HMIS User Service
-  version: 1.0.4
+  version: 1.1.0
   description: |
        **Note :**
               Please note that the partial updates are supported via PUT APIs. However, Note that If "null" value is passed for any element, in the PUT request body, it will be ignored. An empty string value should be sent (instead of "null" value) for the elements that need to be updated with NULL values.
@@ -1563,6 +1563,293 @@ paths:
                                 error:
                                 - code: INVALID_SESSION_TOKEN
                                   message: 'token has expired: 11B88EAFF0184196A846A54CFB35BDEB4BD06E79BB9145F78524FC37A3F0DE63'
+  /trustedapps:
+    get:
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                example:
+                    trustedApps:
+                      pagination:
+                        from: 0
+                        maximum: 30
+                        sort: {}
+                      trustedApp:
+                      - trustedAppId: 084AB810-F828-4F55-AF77-DEF3EB2433D5
+                        friendlyName: cessupport
+                        description: IOS mobile app
+                        status: ACTIVE
+                        trustedAppFamilyType: APP
+                        trustedAppProfileType: NATIVE
+                      - trustedAppId: 48B22E82-7307-4998-A932-F8ADAF4FBDBC
+                        friendlyName: SR_team 12
+                        description: ''
+                        status: ACTIVE
+                        trustedAppFamilyType: APP
+                        trustedAppProfileType: CLIENT_SIDE_WEB_APP
+      description: To retrive existing trustedapps.
+      operationId: GET_trustedapps
+      parameters:
+        - name: Authorization
+          in: header
+          required: true
+          description: >-
+            Authorization request header should specify as HMISUserAuth
+            session_token={sessiontokenvalue}.
+          schema:
+            type: string
+        - name: X-HMIS-TrustedApp-Id
+          in: header
+          required: true
+          description: Trusted App id should be provide in this header.
+          schema:
+            type: string
+  /trustedapps/{trustedappid}/projectgroups:
+    parameters:
+        - name: Authorization
+          in: header
+          required: true
+          description: >-
+            Authorization request header should specify as HMISUserAuth
+            session_token={sessiontokenvalue}.
+          schema:
+            type: string
+        - name: X-HMIS-TrustedApp-Id
+          in: header
+          required: true
+          description: Trusted App id should be provide in this header.
+          schema:
+            type: string
+        - name: trustedappid
+          in: path
+          required: true
+          description: Trusted App id
+          schema:
+            type: string
+    put:
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+               example:
+                        |
+        '404':
+         description: trustedapp not found
+         content:
+          application/json:
+            schema:
+              {
+                "type": "object",
+                "required": [
+                  "errors"
+                ],
+                "properties": {
+                  "errors": {
+                    "type": "object",
+                    "required": [
+                      "error"
+                    ],
+                    "properties": {
+                      "error": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "required": [
+                            "code",
+                            "message"
+                          ],
+                          "properties": {
+                            "code": {
+                              "type": "string",
+                            },
+                            "message": {
+                              "type": "string",
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            example:
+              errors:
+                error:
+                - code: TRUSTED_APP_NOTFOUND
+                  message: Trustedapp not found 2ba28d40-1dfd-11e9-985f-02fe61f7863e
+                      
+      description: |
+      operationId: PUT_add_project_group_to_trustedapp
+      requestBody:
+        content:
+          application/json:
+            schema:
+              example:
+                  projectGroup:
+                      projectGroupId:9b9792ca-8730-4d21-9a39-6902229fd4b9 
+    get:
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+               example:
+                        projectgroups:
+                            pagination:
+                              from: 0
+                              maximum: 30
+                              sort: {}
+                            projectGroups:
+                            - projectGroupName: PROJECT_GROUP_NAME
+                              projectGroupDesc: PROJECT_GROUP_DESCRIPTION
+                              projectGroupId: 9b9792ca-8730-4d21-9a39-6902229fd4b9
+                              projectGroupCode: PG0001
+                              bucketName: pg0001-6546a3c1-5cc3-4d9c-afd6-691a2704d8b9
+                              projects: []
+                            - projectGroupName: PROJECT_GROUP_NAME
+                              projectGroupDesc: PROJECT_GROUP_DESCRIPTION
+                              projectGroupId: 9b9792ca-8730-4d21-9a39-6902229fd4b9
+                              projectGroupCode: PG0001
+                              bucketName: pg0001-6546a3c1-5cc3-4d9c-afd6-691a2704d8b9
+                              projects: []
+
+        '404':
+         description: trustedapp not found
+         content:
+          application/json:
+            schema:
+              {
+                "type": "object",
+                "required": [
+                  "errors"
+                ],
+                "properties": {
+                  "errors": {
+                    "type": "object",
+                    "required": [
+                      "error"
+                    ],
+                    "properties": {
+                      "error": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "required": [
+                            "code",
+                            "message"
+                          ],
+                          "properties": {
+                            "code": {
+                              "type": "string",
+                            },
+                            "message": {
+                              "type": "string",
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            example:
+              errors:
+                error:
+                - code: TRUSTED_APP_NOTFOUND
+                  message: Trustedapp not found 2ba28d40-1dfd-11e9-985f-02fe61f7863e
+                      
+      description: |
+      operationId: get_trustedapp_projectgroups                      
+  /trustedapps/{trustedappid}/projectgroups/{projectgroupid}:
+    parameters:
+        - name: Authorization
+          in: header
+          required: true
+          description: >-
+            Authorization request header should specify as HMISUserAuth
+            session_token={sessiontokenvalue}.
+          schema:
+            type: string
+        - name: X-HMIS-TrustedApp-Id
+          in: header
+          required: true
+          description: Trusted App id should be provide in this header.
+          schema:
+            type: string
+        - name: trustedappid
+          in: path
+          required: true
+          description: Trusted App id
+          schema:
+            type: string  
+        - name: projectgroupid
+          in: path
+          required: true
+          description: Project Group Id
+          schema:
+            type: string     
+    delete:
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                example:  |
+        '404':
+         description: trustedapp not found
+         content:
+          application/json:
+            schema:
+              {
+                "type": "object",
+                "required": [
+                  "errors"
+                ],
+                "properties": {
+                  "errors": {
+                    "type": "object",
+                    "required": [
+                      "error"
+                    ],
+                    "properties": {
+                      "error": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "required": [
+                            "code",
+                            "message"
+                          ],
+                          "properties": {
+                            "code": {
+                              "type": "string",
+                            },
+                            "message": {
+                              "type": "string",
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            example:
+              errors:
+                error:
+                - code: TRUSTED_APP_NOTFOUND
+                  message: Trustedapp not found 2ba28d40-1dfd-11e9-985f-02fe61f7863e
+                      
+      description: |
+      operationId: delete_project_group_from_trustedapp
+            
 components:
   schemas: {}
   responses: {}
