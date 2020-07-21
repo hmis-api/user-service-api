@@ -1571,7 +1571,40 @@ paths:
           content:
             application/json:
               schema:
-                example:
+                        type: object
+                        properties:
+                          trustedApps:
+                            type: object
+                            properties:
+                              pagination:
+                                type: object
+                                properties:
+                                  from:
+                                    type: integer
+                                  maximum:
+                                    type: integer
+                                  sort:
+                                    type: object
+                              trustedApp:
+                                type: array
+                                items:
+                                  anyOf:
+                                  - type: object
+                                    properties:
+                                      trustedAppId:
+                                        type: string
+                                      friendlyName:
+                                        type: string
+                                      description:
+                                        type: string
+                                      status:
+                                        type: string
+                                      trustedAppFamilyType:
+                                        type: string
+                                      trustedAppProfileType:
+                                        type: string
+
+              example:
                     trustedApps:
                       pagination:
                         from: 0
@@ -1689,7 +1722,15 @@ paths:
         content:
           application/json:
             schema:
-              example:
+                  type: object
+                  properties:
+                    projectGroup:
+                      type: object
+                      properties:
+                        projectGroupId:
+                          type: string
+                          
+            example:
                   projectGroup:
                       projectGroupId:9b9792ca-8730-4d21-9a39-6902229fd4b9 
     get:
@@ -1699,7 +1740,52 @@ paths:
           content:
             application/json:
               schema:
-               example:
+                      type: object
+                      properties:
+                        projectgroups:
+                          type: object
+                          properties:
+                            pagination:
+                              type: object
+                              properties:
+                                from:
+                                  type: integer
+                                maximum:
+                                  type: integer
+                                sort:
+                                  type: object
+                            projectGroups:
+                              type: array
+                              items:
+                                anyOf:
+                                  - type: object
+                                    properties:
+                                      projectGroupName:
+                                        type: string
+                                      projectGroupDesc:
+                                        type: string
+                                      projectGroupId:
+                                        type: string
+                                      projectGroupCode:
+                                        type: string
+                                      bucketName:
+                                        type: string
+                                  - type: object
+                                    properties:
+                                      projectGroupName:
+                                        type: string
+                                      projectGroupDesc:
+                                        type: string
+                                      projectGroupId:
+                                        type: string
+                                      projectGroupCode:
+                                        type: string
+                                      skipuseridentifers:
+                                        type: boolean
+                                      bucketName:
+                                        type: string
+                      
+              example:
                         projectgroups:
                             pagination:
                               from: 0
@@ -1712,11 +1798,11 @@ paths:
                               projectGroupCode: PG0001
                               bucketName: pg0001-6546a3c1-5cc3-4d9c-afd6-691a2704d8b9
                               projects: []
-                            - projectGroupName: PROJECT_GROUP_NAME
-                              projectGroupDesc: PROJECT_GROUP_DESCRIPTION
-                              projectGroupId: 9b9792ca-8730-4d21-9a39-6902229fd4b9
-                              projectGroupCode: PG0001
-                              bucketName: pg0001-6546a3c1-5cc3-4d9c-afd6-691a2704d8b9
+                            - projectGroupName: CK Project
+                              projectGroupDesc: Test CK Project
+                              projectGroupId: 34926f5a-3bc6-42af-ba30-9f0a9746316d
+                              projectGroupCode: CP0004
+                              bucketName: cp0004-6546a3c1-5cc3-4d9c-afd6-691a2704d8b9
                               projects: []
 
         '404':
